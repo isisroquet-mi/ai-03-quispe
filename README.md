@@ -9,9 +9,7 @@ La idea central no es solo que Claude Code aumente la productividad en lenguajes
 En términos simples, la pregunta es:
 
 $$
-\boxed{
-\text{¿Claude Code permite producir en más lenguajes?}
-}
+\boxed{\text{¿Claude Code permite producir en más lenguajes?}}
 $$
 
 Más específicamente, el paper estudia si la adopción de Claude Code está asociada con:
@@ -27,13 +25,13 @@ El objeto relevante no es una **frontera de habilidad**, sino una **frontera de 
 
 El desarrollador enfrenta oportunidades de producción en distintos lenguajes $k$. Para cada lenguaje, decide si le conviene producir o no.
 
-El modelo compara tres modos de producción:
+El modelo compara tres modos de producción. Antes de Claude Code, el menú es:
 
 $$
 M^1=\{S,C\}
 $$
 
-antes de Claude Code, donde:
+donde:
 
 - $S$: producción solo;
 - $C$: asistencia conversacional.
@@ -41,7 +39,7 @@ antes de Claude Code, donde:
 Después de Claude Code, el menú se expande a:
 
 $$
-M^2=\{S,C,D\},
+M^2=\{S,C,D\}
 $$
 
 donde:
@@ -51,7 +49,7 @@ donde:
 El desarrollador elige el modo que le da mayor excedente:
 
 $$
-V^g_{ik,t}=\max_{m\in M^g} V^m_{ik,t}.
+V^g_{ik,t}=\max_{m\in M^g} V^m_{ik,t}
 $$
 
 El lenguaje se activa si el excedente máximo es no negativo:
@@ -59,10 +57,9 @@ El lenguaje se activa si el excedente máximo es no negativo:
 $$
 Z^g_{ik,t}
 =
-\mathbf{1}
-\left[
+\mathbf{1}\left[
 V^g_{ik,t}\ge 0
-\right].
+\right]
 $$
 
 El número de lenguajes observados en el mes es:
@@ -70,7 +67,7 @@ El número de lenguajes observados en el mes es:
 $$
 N^g_{it}
 =
-\sum_k Z^g_{ik,t}.
+\sum_k Z^g_{ik,t}
 $$
 
 ### Producción solo
@@ -86,23 +83,23 @@ s\mu
 -
 \frac{\rho s^2}{2\pi}
 -
-b.
+b
 $$
 
 El lenguaje se usa si:
 
 $$
-V^S\ge 0.
+V^S\ge 0
 $$
 
 Despejando:
 
 $$
-\omega+s\mu-\frac{\rho s^2}{2\pi}-b\ge 0,
+\omega+s\mu-\frac{\rho s^2}{2\pi}-b\ge 0
 $$
 
 $$
-\omega\ge b-s\mu+\frac{\rho s^2}{2\pi}.
+\omega\ge b-s\mu+\frac{\rho s^2}{2\pi}
 $$
 
 Entonces el umbral de entrada bajo producción solo es:
@@ -120,7 +117,7 @@ y se cumple:
 $$
 V^S\ge 0
 \Longleftrightarrow
-\omega\ge T^S.
+\omega\ge T^S
 $$
 
 ### Asistencia conversacional
@@ -130,7 +127,7 @@ La IA conversacional agrega un beneficio proporcional a la habilidad existente:
 $$
 V^C
 =
-V^S+\gamma s-r_C.
+V^S+\gamma s-r_C
 $$
 
 Por tanto, su umbral es:
@@ -138,7 +135,7 @@ Por tanto, su umbral es:
 $$
 T^C
 =
-T^S-(\gamma s-r_C).
+T^S-(\gamma s-r_C)
 $$
 
 Antes de Claude Code, el umbral efectivo es:
@@ -146,13 +143,13 @@ Antes de Claude Code, el umbral efectivo es:
 $$
 T^1
 =
-\min\{T^S,T^C\}.
+\min\{T^S,T^C\}
 $$
 
 Como:
 
 $$
-T^C=T^S-(\gamma s-r_C),
+T^C=T^S-(\gamma s-r_C)
 $$
 
 entonces:
@@ -160,20 +157,20 @@ entonces:
 $$
 T^1
 =
-T^S-\max\{0,\gamma s-r_C\}.
+T^S-\max\{0,\gamma s-r_C\}
 $$
 
 Para lenguajes desconocidos, el paper asume:
 
 $$
-\gamma s-r_C\le 0.
+\gamma s-r_C\le 0
 $$
 
 Es decir, la IA conversacional no reduce el umbral de entrada si el desarrollador no tiene una base previa en ese lenguaje. Por tanto:
 
 $$
 \boxed{
-T^1=T^S.
+T^1=T^S
 }
 $$
 
@@ -205,14 +202,14 @@ b \\
 (1-\lambda)^2\frac{s^2}{\pi}
 +
 \sigma_D^2(a,s,A)
-\right].
+\right]
 \end{aligned}
 $$
 
 El lenguaje se activa si:
 
 $$
-V^D\ge 0.
+V^D\ge 0
 $$
 
 Despejando $\omega$, se obtiene el umbral de delegación:
@@ -237,7 +234,7 @@ r_D \\
 (1-\lambda)^2\frac{s^2}{\pi}
 +
 \sigma_D^2(a,s,A)
-\right].
+\right]
 \end{aligned}
 }
 $$
@@ -247,7 +244,7 @@ Entonces:
 $$
 V^D\ge 0
 \Longleftrightarrow
-\omega\ge T^D.
+\omega\ge T^D
 $$
 
 Después de Claude Code, el umbral efectivo es:
@@ -255,14 +252,14 @@ Después de Claude Code, el umbral efectivo es:
 $$
 T^2
 =
-\min\{T^1,T^D\}.
+\min\{T^1,T^D\}
 $$
 
 Como el desarrollador siempre puede ignorar Claude Code, el nuevo menú no puede empeorar sus opciones dentro del modelo:
 
 $$
 \boxed{
-T^2\le T^1.
+T^2\le T^1
 }
 $$
 
@@ -273,7 +270,7 @@ El resultado principal del modelo es que Claude Code puede expandir el número e
 Para lenguajes desconocidos, ya se tiene:
 
 $$
-T^1=T^S.
+T^1=T^S
 $$
 
 El paper define la reducción del umbral por delegación como:
@@ -281,13 +278,13 @@ El paper define la reducción del umbral por delegación como:
 $$
 B
 \equiv
-T^1-T^D.
+T^1-T^D
 $$
 
 Como $T^1=T^S$, entonces:
 
 $$
-B=T^S-T^D.
+B=T^S-T^D
 $$
 
 Sustituyendo:
@@ -319,7 +316,7 @@ r_D \\
 (1-\lambda)^2\frac{s^2}{\pi}
 +
 \sigma_D^2(a,s,A)
-\right],
+\right]
 \end{aligned}
 $$
 
@@ -350,7 +347,7 @@ r_D \\
 +
 \sigma_D^2(a,s,A)
 \right]
-\Bigg].
+\Bigg]
 \end{aligned}
 $$
 
@@ -377,7 +374,7 @@ r_D \\
 (1-\lambda)^2\frac{s^2}{\pi}
 +
 \sigma_D^2(a,s,A)
-\right].
+\right]
 \end{aligned}
 $$
 
@@ -405,7 +402,7 @@ r_D \\
 (1-\lambda)^2\frac{s^2}{\pi}
 +
 \sigma_D^2(a,s,A)
-\right].
+\right]
 \end{aligned}
 $$
 
@@ -414,7 +411,7 @@ Simplificando los términos con $s\mu$:
 $$
 -s\mu+(1-\lambda)s\mu
 =
--\lambda s\mu.
+-\lambda s\mu
 $$
 
 Simplificando los términos de riesgo:
@@ -429,7 +426,7 @@ $$
 \left[
 1-(1-\lambda)^2
 \right]
-\frac{s^2}{\pi}.
+\frac{s^2}{\pi}
 $$
 
 Como:
@@ -439,7 +436,7 @@ $$
 =
 1-(1-2\lambda+\lambda^2)
 =
-2\lambda-\lambda^2,
+2\lambda-\lambda^2
 $$
 
 entonces:
@@ -459,27 +456,27 @@ r_D
 (2\lambda-\lambda^2)\frac{s^2}{\pi}
 -
 \sigma_D^2(a,s,A)
-\right].
+\right]
 }
 $$
 
 Si:
 
 $$
-B>0,
+B>0
 $$
 
 entonces:
 
 $$
-T^S-T^D>0,
+T^S-T^D>0
 $$
 
 por tanto:
 
 $$
 \boxed{
-T^D<T^S.
+T^D<T^S
 }
 $$
 
@@ -493,14 +490,14 @@ Z^2-Z^1
 \mathbf{1}
 \left[
 T^D\le \omega<T^S
-\right].
+\right]
 $$
 
 Este intervalo es la **banda de activación**:
 
 $$
 \boxed{
-T^D\le \omega<T^S.
+T^D\le \omega<T^S
 }
 $$
 
@@ -515,7 +512,7 @@ Sumando sobre lenguajes:
 $$
 N^2-N^1
 =
-\sum_k (Z^2_k-Z^1_k).
+\sum_k (Z^2_k-Z^1_k)
 $$
 
 Tomando esperanza:
@@ -524,7 +521,7 @@ $$
 \mathbb{E}[N^2-N^1]
 =
 \sum_k
-\mathbb{E}[Z^2_k-Z^1_k].
+\mathbb{E}[Z^2_k-Z^1_k]
 $$
 
 Como:
@@ -532,7 +529,7 @@ Como:
 $$
 Z^g_k
 =
-\mathbf{1}[\omega_k\ge T^g_k],
+\mathbf{1}[\omega_k\ge T^g_k]
 $$
 
 entonces:
@@ -542,7 +539,7 @@ $$
 =
 \Pr(\omega_k\ge T^g_k)
 =
-1-F_k(T^g_k).
+1-F_k(T^g_k)
 $$
 
 Por tanto:
@@ -553,7 +550,7 @@ $$
 &=
 [1-F_k(T^2_k)]-[1-F_k(T^1_k)]\\
 &=
-F_k(T^1_k)-F_k(T^2_k).
+F_k(T^1_k)-F_k(T^2_k)
 \end{aligned}
 $$
 
@@ -567,7 +564,7 @@ $$
 \left[
 F_k(T^1_k)-F_k(T^2_k)
 \right]
-\ge 0.
+\ge 0
 }
 $$
 
@@ -581,7 +578,7 @@ $$
 \left[
 F_k(T^S_k)-F_k(T^D_k)
 \right]
-\ge 0.
+\ge 0
 }
 $$
 
@@ -597,7 +594,7 @@ Z^2-Z^1
 =
 \mathbf{1}[T^D\le \omega<T^S]
 \Longrightarrow
-\mathbb{E}[N^2-N^1]\ge0.
+\mathbb{E}[N^2-N^1]\ge0
 }
 $$
 
@@ -610,13 +607,13 @@ El resultado depende de varias condiciones importantes.
 Para lenguajes desconocidos, el paper requiere:
 
 $$
-\gamma s-r_C\le 0.
+\gamma s-r_C\le 0
 $$
 
 Esto implica:
 
 $$
-T^1=T^S.
+T^1=T^S
 $$
 
 La interpretación es que ChatGPT, Copilot u otra IA conversacional ayudan sobre todo cuando el desarrollador ya tiene una base en el lenguaje. Si el lenguaje es desconocido, la asistencia conversacional no basta para reducir el umbral de entrada.
@@ -626,13 +623,13 @@ La interpretación es que ChatGPT, Copilot u otra IA conversacional ayudan sobre
 La condición central es:
 
 $$
-B>0.
+B>0
 $$
 
 Esto equivale a:
 
 $$
-T^D<T^S.
+T^D<T^S
 $$
 
 En términos económicos, la delegación debe generar beneficios netos mayores que sus costos.
@@ -671,7 +668,7 @@ Por tanto, Claude Code reduce el umbral solo si la ganancia por delegar y la red
 No basta con que $T^D<T^S$. Para que el lenguaje nuevo efectivamente se observe, la oportunidad $\omega$ debe estar en el intervalo:
 
 $$
-T^D\le \omega<T^S.
+T^D\le \omega<T^S
 $$
 
 Ese es el conjunto de oportunidades que antes no eran rentables y que ahora sí lo son.
@@ -681,7 +678,7 @@ Ese es el conjunto de oportunidades que antes no eran rentables y que ahora sí 
 El aumento esperado en lenguajes depende de:
 
 $$
-F_k(T^S_k)-F_k(T^D_k).
+F_k(T^S_k)-F_k(T^D_k)
 $$
 
 Si no hay oportunidades en ese intervalo, la banda existe formalmente, pero no genera nuevos lenguajes observados.
@@ -695,7 +692,7 @@ B>0
 \Longrightarrow
 T^D<T^S
 \Longrightarrow
-\mathbb{E}[N^2-N^1]\ge0.
+\mathbb{E}[N^2-N^1]\ge0
 $$
 
 La vulnerabilidad está en el primer supuesto económico, que puede expresarse así:
@@ -713,13 +710,13 @@ donde $\Delta$ representa la reducción efectiva del costo o del umbral de entra
 En el lenguaje del modelo, esa idea aparece como:
 
 $$
-B=T^S-T^D>0.
+B=T^S-T^D>0
 $$
 
 Es decir, el paper necesita que Claude Code reduzca el umbral:
 
 $$
-T^D<T^S.
+T^D<T^S
 $$
 
 Pero ese paso no es observado directamente en los datos. El paper no observa $\Delta$, ni observa directamente cuánto cayó el costo de producir en un lenguaje desconocido. Tampoco observa perfectamente cuánto trabajo fue delegado al agente, cuánto verificó el humano o si el desarrollador ya tenía planeado entrar a ese lenguaje.
@@ -776,7 +773,7 @@ $$
 \boxed{
 \text{Claude Code}
 \Longrightarrow
-\Delta>0.
+\Delta>0
 }
 $$
 
