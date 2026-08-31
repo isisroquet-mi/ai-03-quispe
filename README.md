@@ -49,25 +49,19 @@ donde:
 El desarrollador elige el modo que le da mayor excedente:
 
 $$
-V^g_{ik,t}=\max_{m\in M^g} V^m_{ik,t}
+V^g_{ik,t}=\max_{m\in M^g}V^m_{ik,t}
 $$
 
 El lenguaje se activa si el excedente máximo es no negativo:
 
 $$
-Z^g_{ik,t}
-=
-\mathbf{1}\left[
-V^g_{ik,t}\ge 0
-\right]
+Z^g_{ik,t}=\mathbf{1}\left[V^g_{ik,t}\ge 0\right]
 $$
 
 El número de lenguajes observados en el mes es:
 
 $$
-N^g_{it}
-=
-\sum_k Z^g_{ik,t}
+N^g_{it}=\sum_k Z^g_{ik,t}
 $$
 
 ### Producción solo
@@ -75,15 +69,7 @@ $$
 El excedente bajo producción solo es:
 
 $$
-V^S
-=
-\omega
-+
-s\mu
--
-\frac{\rho s^2}{2\pi}
--
-b
+V^S=\omega+s\mu-\frac{\rho s^2}{2\pi}-b
 $$
 
 El lenguaje se usa si:
@@ -105,19 +91,13 @@ $$
 Entonces el umbral de entrada bajo producción solo es:
 
 $$
-\boxed{
-T^S
-=
-b-s\mu+\frac{\rho s^2}{2\pi}
-}
+\boxed{T^S=b-s\mu+\frac{\rho s^2}{2\pi}}
 $$
 
 y se cumple:
 
 $$
-V^S\ge 0
-\Longleftrightarrow
-\omega\ge T^S
+V^S\ge 0\Longleftrightarrow \omega\ge T^S
 $$
 
 ### Asistencia conversacional
@@ -125,25 +105,19 @@ $$
 La IA conversacional agrega un beneficio proporcional a la habilidad existente:
 
 $$
-V^C
-=
-V^S+\gamma s-r_C
+V^C=V^S+\gamma s-r_C
 $$
 
 Por tanto, su umbral es:
 
 $$
-T^C
-=
-T^S-(\gamma s-r_C)
+T^C=T^S-(\gamma s-r_C)
 $$
 
 Antes de Claude Code, el umbral efectivo es:
 
 $$
-T^1
-=
-\min\{T^S,T^C\}
+T^1=\min\{T^S,T^C\}
 $$
 
 Como:
@@ -155,9 +129,7 @@ $$
 entonces:
 
 $$
-T^1
-=
-T^S-\max\{0,\gamma s-r_C\}
+T^1=T^S-\max\{0,\gamma s-r_C\}
 $$
 
 Para lenguajes desconocidos, el paper asume:
@@ -169,9 +141,7 @@ $$
 Es decir, la IA conversacional no reduce el umbral de entrada si el desarrollador no tiene una base previa en ese lenguaje. Por tanto:
 
 $$
-\boxed{
-T^1=T^S
-}
+\boxed{T^1=T^S}
 $$
 
 ### Delegación agentic con Claude Code
@@ -181,29 +151,18 @@ Claude Code introduce un nuevo modo de producción: la delegación.
 El excedente bajo delegación es:
 
 $$
-\begin{aligned}
-V^D
-&=
+V^D=
 \omega
-+
-(1-\lambda)s\mu
-+
-\lambda a z(A)
--
-\kappa(a,s)
--
-r_D
--
-b \\
-&\quad
--
-\frac{\rho}{2}
++(1-\lambda)s\mu
++\lambda az(A)
+-\kappa(a,s)
+-r_D
+-b
+-\frac{\rho}{2}
 \left[
 (1-\lambda)^2\frac{s^2}{\pi}
-+
-\sigma_D^2(a,s,A)
++\sigma_D^2(a,s,A)
 \right]
-\end{aligned}
 $$
 
 El lenguaje se activa si:
@@ -216,51 +175,36 @@ Despejando $\omega$, se obtiene el umbral de delegación:
 
 $$
 \boxed{
-\begin{aligned}
-T^D
-&=
+T^D=
 b
--
-(1-\lambda)s\mu
--
-\lambda a z(A)
-+
-\kappa(a,s)
-+
-r_D \\
-&\quad+
-\frac{\rho}{2}
+-(1-\lambda)s\mu
+-\lambda az(A)
++\kappa(a,s)
++r_D
++\frac{\rho}{2}
 \left[
 (1-\lambda)^2\frac{s^2}{\pi}
-+
-\sigma_D^2(a,s,A)
++\sigma_D^2(a,s,A)
 \right]
-\end{aligned}
 }
 $$
 
 Entonces:
 
 $$
-V^D\ge 0
-\Longleftrightarrow
-\omega\ge T^D
+V^D\ge 0\Longleftrightarrow \omega\ge T^D
 $$
 
 Después de Claude Code, el umbral efectivo es:
 
 $$
-T^2
-=
-\min\{T^1,T^D\}
+T^2=\min\{T^1,T^D\}
 $$
 
 Como el desarrollador siempre puede ignorar Claude Code, el nuevo menú no puede empeorar sus opciones dentro del modelo:
 
 $$
-\boxed{
-T^2\le T^1
-}
+\boxed{T^2\le T^1}
 $$
 
 ## 3. Resultado principal
@@ -276,9 +220,7 @@ $$
 El paper define la reducción del umbral por delegación como:
 
 $$
-B
-\equiv
-T^1-T^D
+B\equiv T^1-T^D
 $$
 
 Como $T^1=T^S$, entonces:
@@ -290,34 +232,23 @@ $$
 Sustituyendo:
 
 $$
-T^S
-=
-b-s\mu+\frac{\rho s^2}{2\pi}
+T^S=b-s\mu+\frac{\rho s^2}{2\pi}
 $$
 
 y
 
 $$
-\begin{aligned}
-T^D
-&=
+T^D=
 b
--
-(1-\lambda)s\mu
--
-\lambda a z(A)
-+
-\kappa(a,s)
-+
-r_D \\
-&\quad+
-\frac{\rho}{2}
+-(1-\lambda)s\mu
+-\lambda az(A)
++\kappa(a,s)
++r_D
++\frac{\rho}{2}
 \left[
 (1-\lambda)^2\frac{s^2}{\pi}
-+
-\sigma_D^2(a,s,A)
++\sigma_D^2(a,s,A)
 \right]
-\end{aligned}
 $$
 
 se obtiene:
@@ -332,20 +263,15 @@ b-s\mu+\frac{\rho s^2}{2\pi}
 -
 \Bigg[
 b
--
-(1-\lambda)s\mu
--
-\lambda a z(A)
-+
-\kappa(a,s)
-+
-r_D \\
+-(1-\lambda)s\mu
+-\lambda az(A)
++\kappa(a,s)
++r_D \\
 &\qquad\qquad+
 \frac{\rho}{2}
 \left[
 (1-\lambda)^2\frac{s^2}{\pi}
-+
-\sigma_D^2(a,s,A)
++\sigma_D^2(a,s,A)
 \right]
 \Bigg]
 \end{aligned}
@@ -359,21 +285,15 @@ B
 &=
 b-s\mu+\frac{\rho s^2}{2\pi}
 -b
-+
-(1-\lambda)s\mu
-+
-\lambda a z(A)
--
-\kappa(a,s)
--
-r_D \\
++(1-\lambda)s\mu
++\lambda az(A)
+-\kappa(a,s)
+-r_D \\
 &\quad
--
-\frac{\rho}{2}
+-\frac{\rho}{2}
 \left[
 (1-\lambda)^2\frac{s^2}{\pi}
-+
-\sigma_D^2(a,s,A)
++\sigma_D^2(a,s,A)
 \right]
 \end{aligned}
 $$
@@ -385,23 +305,16 @@ $$
 B
 &=
 -s\mu
-+
-(1-\lambda)s\mu
-+
-\lambda a z(A)
--
-\kappa(a,s)
--
-r_D \\
++(1-\lambda)s\mu
++\lambda az(A)
+-\kappa(a,s)
+-r_D \\
 &\quad
-+
-\frac{\rho s^2}{2\pi}
--
-\frac{\rho}{2}
++\frac{\rho s^2}{2\pi}
+-\frac{\rho}{2}
 \left[
 (1-\lambda)^2\frac{s^2}{\pi}
-+
-\sigma_D^2(a,s,A)
++\sigma_D^2(a,s,A)
 \right]
 \end{aligned}
 $$
@@ -409,9 +322,7 @@ $$
 Simplificando los términos con $s\mu$:
 
 $$
--s\mu+(1-\lambda)s\mu
-=
--\lambda s\mu
+-s\mu+(1-\lambda)s\mu=-\lambda s\mu
 $$
 
 Simplificando los términos de riesgo:
@@ -419,8 +330,7 @@ Simplificando los términos de riesgo:
 $$
 \frac{\rho s^2}{2\pi}
 -
-\frac{\rho}{2}
-(1-\lambda)^2\frac{s^2}{\pi}
+\frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
 =
 \frac{\rho}{2}
 \left[
@@ -443,19 +353,14 @@ entonces:
 
 $$
 \boxed{
-B
-=
-\lambda\left[a z(A)-s\mu\right]
--
-\kappa(a,s)
--
-r_D
-+
-\frac{\rho}{2}
+B=
+\lambda\left[az(A)-s\mu\right]
+-\kappa(a,s)
+-r_D
++\frac{\rho}{2}
 \left[
 (2\lambda-\lambda^2)\frac{s^2}{\pi}
--
-\sigma_D^2(a,s,A)
+-\sigma_D^2(a,s,A)
 \right]
 }
 $$
@@ -475,9 +380,7 @@ $$
 por tanto:
 
 $$
-\boxed{
-T^D<T^S
-}
+\boxed{T^D<T^S}
 $$
 
 Esto significa que Claude Code reduce el umbral de entrada para ese lenguaje desconocido.
@@ -485,8 +388,7 @@ Esto significa que Claude Code reduce el umbral de entrada para ese lenguaje des
 El cambio en la activación de un lenguaje es:
 
 $$
-Z^2-Z^1
-=
+Z^2-Z^1=
 \mathbf{1}
 \left[
 T^D\le \omega<T^S
@@ -496,9 +398,7 @@ $$
 Este intervalo es la **banda de activación**:
 
 $$
-\boxed{
-T^D\le \omega<T^S
-}
+\boxed{T^D\le \omega<T^S}
 $$
 
 Interpretación:
@@ -510,9 +410,7 @@ Interpretación:
 Sumando sobre lenguajes:
 
 $$
-N^2-N^1
-=
-\sum_k (Z^2_k-Z^1_k)
+N^2-N^1=\sum_k (Z^2_k-Z^1_k)
 $$
 
 Tomando esperanza:
@@ -520,16 +418,13 @@ Tomando esperanza:
 $$
 \mathbb{E}[N^2-N^1]
 =
-\sum_k
-\mathbb{E}[Z^2_k-Z^1_k]
+\sum_k \mathbb{E}[Z^2_k-Z^1_k]
 $$
 
 Como:
 
 $$
-Z^g_k
-=
-\mathbf{1}[\omega_k\ge T^g_k]
+Z^g_k=\mathbf{1}[\omega_k\ge T^g_k]
 $$
 
 entonces:
@@ -590,8 +485,7 @@ $$
 \Longrightarrow
 T^D<T^S
 \Longrightarrow
-Z^2-Z^1
-=
+Z^2-Z^1=
 \mathbf{1}[T^D\le \omega<T^S]
 \Longrightarrow
 \mathbb{E}[N^2-N^1]\ge0
@@ -637,7 +531,7 @@ En términos económicos, la delegación debe generar beneficios netos mayores q
 La expresión de $B$ muestra que esto depende de:
 
 $$
-\lambda\left[a z(A)-s\mu\right]
+\lambda\left[az(A)-s\mu\right]
 $$
 
 como ganancia esperada por sustitución de ejecución humana por ejecución agentic;
@@ -654,8 +548,7 @@ $$
 \frac{\rho}{2}
 \left[
 (2\lambda-\lambda^2)\frac{s^2}{\pi}
--
-\sigma_D^2(a,s,A)
+-\sigma_D^2(a,s,A)
 \right]
 $$
 
