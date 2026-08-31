@@ -10,7 +10,7 @@ En términos simples, la pregunta es:
 
 $$
 \boxed{
-\text{¿Claude Code permite que los desarrolladores produzcan en más lenguajes de programación?}
+\text{¿Claude Code permite producir en más lenguajes?}
 }
 $$
 
@@ -25,7 +25,7 @@ El objeto relevante no es una **frontera de habilidad**, sino una **frontera de 
 
 ## 2. Problema del agente
 
-El desarrollador enfrenta oportunidades de producción en distintos lenguajes \(k\). Para cada lenguaje, decide si le conviene producir o no.
+El desarrollador enfrenta oportunidades de producción en distintos lenguajes $k$. Para cada lenguaje, decide si le conviene producir o no.
 
 El modelo compara tres modos de producción:
 
@@ -35,8 +35,8 @@ $$
 
 antes de Claude Code, donde:
 
-- \(S\): producción solo;
-- \(C\): asistencia conversacional.
+- $S$: producción solo;
+- $C$: asistencia conversacional.
 
 Después de Claude Code, el menú se expande a:
 
@@ -46,7 +46,7 @@ $$
 
 donde:
 
-- \(D\): delegación agentic.
+- $D$: delegación agentic.
 
 El desarrollador elige el modo que le da mayor excedente:
 
@@ -197,7 +197,7 @@ V^D
 -
 r_D
 -
-b\\
+b \\
 &\quad
 -
 \frac{\rho}{2}
@@ -215,7 +215,7 @@ $$
 V^D\ge 0.
 $$
 
-Despejando \(\omega\), se obtiene el umbral de delegación:
+Despejando $\omega$, se obtiene el umbral de delegación:
 
 $$
 \boxed{
@@ -230,7 +230,7 @@ b
 +
 \kappa(a,s)
 +
-r_D\\
+r_D \\
 &\quad+
 \frac{\rho}{2}
 \left[
@@ -284,7 +284,7 @@ B
 T^1-T^D.
 $$
 
-Como \(T^1=T^S\), entonces:
+Como $T^1=T^S$, entonces:
 
 $$
 B=T^S-T^D.
@@ -312,7 +312,7 @@ b
 +
 \kappa(a,s)
 +
-r_D\\
+r_D \\
 &\quad+
 \frac{\rho}{2}
 \left[
@@ -342,7 +342,7 @@ b
 +
 \kappa(a,s)
 +
-r_D\\
+r_D \\
 &\qquad\qquad+
 \frac{\rho}{2}
 \left[
@@ -369,7 +369,7 @@ b-s\mu+\frac{\rho s^2}{2\pi}
 -
 \kappa(a,s)
 -
-r_D\\
+r_D \\
 &\quad
 -
 \frac{\rho}{2}
@@ -381,7 +381,7 @@ r_D\\
 \end{aligned}
 $$
 
-Cancelando \(b-b=0\):
+Cancelando $b-b=0$:
 
 $$
 \begin{aligned}
@@ -395,7 +395,7 @@ B
 -
 \kappa(a,s)
 -
-r_D\\
+r_D \\
 &\quad
 +
 \frac{\rho s^2}{2\pi}
@@ -409,7 +409,7 @@ r_D\\
 \end{aligned}
 $$
 
-Simplificando los términos con \(s\mu\):
+Simplificando los términos con $s\mu$:
 
 $$
 -s\mu+(1-\lambda)s\mu
@@ -506,9 +506,9 @@ $$
 
 Interpretación:
 
-- Si \(\omega<T^D\), el lenguaje no se usa ni siquiera con Claude Code.
-- Si \(\omega\ge T^S\), el lenguaje ya era rentable sin Claude Code.
-- Si \(T^D\le \omega<T^S\), el lenguaje solo se vuelve viable gracias a la delegación agentic.
+- Si $\omega<T^D$, el lenguaje no se usa ni siquiera con Claude Code.
+- Si $\omega\ge T^S$, el lenguaje ya era rentable sin Claude Code.
+- Si $T^D\le \omega<T^S$, el lenguaje solo se vuelve viable gracias a la delegación agentic.
 
 Sumando sobre lenguajes:
 
@@ -637,7 +637,7 @@ $$
 
 En términos económicos, la delegación debe generar beneficios netos mayores que sus costos.
 
-La expresión de \(B\) muestra que esto depende de:
+La expresión de $B$ muestra que esto depende de:
 
 $$
 \lambda\left[a z(A)-s\mu\right]
@@ -668,7 +668,7 @@ Por tanto, Claude Code reduce el umbral solo si la ganancia por delegar y la red
 
 ### Condición 3: la oportunidad debe caer dentro de la banda de activación
 
-No basta con que \(T^D<T^S\). Para que el lenguaje nuevo efectivamente se observe, la oportunidad \(\omega\) debe estar en el intervalo:
+No basta con que $T^D<T^S$. Para que el lenguaje nuevo efectivamente se observe, la oportunidad $\omega$ debe estar en el intervalo:
 
 $$
 T^D\le \omega<T^S.
@@ -703,12 +703,12 @@ La vulnerabilidad está en el primer supuesto económico, que puede expresarse a
 $$
 \boxed{
 \text{Claude Code}
-\;\Longrightarrow\;
+\Longrightarrow
 \Delta>0
 }
 $$
 
-donde \(\Delta\) representa la reducción efectiva del costo o del umbral de entrada gracias a la delegación.
+donde $\Delta$ representa la reducción efectiva del costo o del umbral de entrada gracias a la delegación.
 
 En el lenguaje del modelo, esa idea aparece como:
 
@@ -722,14 +722,14 @@ $$
 T^D<T^S.
 $$
 
-Pero ese paso no es observado directamente en los datos. El paper no observa \(\Delta\), ni observa directamente cuánto cayó el costo de producir en un lenguaje desconocido. Tampoco observa perfectamente cuánto trabajo fue delegado al agente, cuánto verificó el humano o si el desarrollador ya tenía planeado entrar a ese lenguaje.
+Pero ese paso no es observado directamente en los datos. El paper no observa $\Delta$, ni observa directamente cuánto cayó el costo de producir en un lenguaje desconocido. Tampoco observa perfectamente cuánto trabajo fue delegado al agente, cuánto verificó el humano o si el desarrollador ya tenía planeado entrar a ese lenguaje.
 
 La evidencia empírica muestra algo más limitado:
 
 $$
 \boxed{
 \text{Claude Code}
-\;\Longrightarrow\;
+\Longrightarrow
 \text{más lenguajes observados}
 }
 $$
