@@ -1,103 +1,783 @@
-# Repository 1 — Aouad, Lykouris & Zhong (2026)
+# Quispe y Xu (2026): Claude Code y la frontera de lenguajes
 
-*Human-AI Productivity Paradoxes: Modeling the Interplay of Skill, Effort, and AI Assistance*
-[arXiv:2605.11350](https://arxiv.org/abs/2605.11350) · [cs.GT]
+## 1. Pregunta
 
-> **This is the worked example** for *Artificial Intelligence and Economic
-> Modeling* (UP 2026-II). It shows what a weekly repository looks like when it is
-> done well. Yours does not have to be this long — see "What is required" below.
+El paper pregunta si los asistentes de programación **agentic** —en particular Claude Code— expanden la frontera de producción de los desarrolladores de software.
 
----
+La idea central no es solo que Claude Code aumente la productividad en lenguajes que el desarrollador ya conoce, sino que pueda permitirle producir en lenguajes que antes estaban fuera de su portafolio observado.
 
-## What question the paper answers
+En términos simples, la pregunta es:
 
-When does AI assistance make a worker **less** productive?
+\[
+\boxed{
+\text{¿Claude Code permite que los desarrolladores produzcan en más lenguajes de programación?}
+}
+\]
 
-The paper picks one mechanism and pushes it: AI is a **perfectly substitutable
-input**. Skill $s$, effort $e$ and assistance $a$ enter production only through
-their sum, $x = s + e + a$. Nothing else is going on — no learning, no
-complementarity, no contracting. Everything that follows comes from that single
-modelling choice plus a linear cost of effort.
+Más específicamente, el paper estudia si la adopción de Claude Code está asociada con:
 
-## The agent's problem
+- más lenguajes activos por mes;
+- más lenguajes usados por primera vez;
+- mayor diversidad del portafolio de lenguajes;
+- mayor acumulación de lenguajes a lo largo del tiempo.
 
-$$\max_{e \ge 0}\; p(s+e+a) - \gamma e$$
+El objeto relevante no es una **frontera de habilidad**, sino una **frontera de producción**: el conjunto de lenguajes en los que el desarrollador logra producir código, sea trabajando solo, con asistencia conversacional o delegando parte de la ejecución a un agente.
 
-with $p$ weakly increasing, concave and twice differentiable, $\gamma > 0$, and
-one constraint that turns out to carry the whole result: $e \ge 0$.
+## 2. Problema del agente
 
-## The main result, with all its conditions
+El desarrollador enfrenta oportunidades de producción en distintos lenguajes \(k\). Para cada lenguaje, decide si le conviene producir o no.
 
-Let $x^{*}$ be the **largest** maximiser of $p(x) - \gamma x$:
+El modelo compara tres modos de producción:
 
-$$x^{*} = \max \arg\max_{x} \left[\, p(x) - \gamma x \,\right]$$
+\[
+M^1=\{S,C\}
+\]
 
-This requires a **regularity condition**, without which $x^{*}$ need not exist:
+antes de Claude Code, donde:
 
-$$\limsup_{x \to \infty} \frac{p(x)}{x} < \gamma$$
+- \(S\): producción solo;
+- \(C\): asistencia conversacional.
 
-**Proposition 2.1.** Under those conditions,
+Después de Claude Code, el menú se expande a:
 
-$$e^{*}(s,a) = \left(x^{*} - s - a\right)_{+}, \qquad
-  p^{*}(s,a) = \max\left\{ p(x^{*}),\, p(s+a) \right\}$$
+\[
+M^2=\{S,C,D\},
+\]
 
-*Intuition in one sentence:* the agent has a single target level of total input,
-tops it up with effort, and once skill plus AI already reach it he stops working.
+donde:
 
-Two things worth noticing about the proof. It is a **case split** — interior
-versus corner — and contains **no differentiation at all**; and the largest-argmax
-tie-break is not decoration, it is what makes $e^{*}$ well defined when
-$p(x)-\gamma x$ has a flat maximum.
+- \(D\): delegación agentic.
 
-## Sections 3–5: stated, not derived
+El desarrollador elige el modo que le da mayor excedente:
 
-The three headline results — the deskilling paradox, the unreliability paradox
-and skill polarisation — use machinery well beyond Section 2: a continuous-time
-birth–death Markov chain and its steady state, Arrow–Pratt risk aversion applied
-to a *production* function with IARA/DARA driving the sign, and Bayesian updating
-over a binary signal. They are worth understanding; they are not worth trying to
-reproduce in a week. See `extra/tutorial-alz-completo.pdf` for the full walk.
+\[
+V^g_{ik,t}=\max_{m\in M^g} V^m_{ik,t}.
+\]
 
----
+El lenguaje se activa si el excedente máximo es no negativo:
 
-## What is in this repository
+\[
+Z^g_{ik,t}
+=
+\mathbf{1}
+\left[
+V^g_{ik,t}\ge 0
+\right].
+\]
 
-| File | What it is |
-|---|---|
-| `README.md` | This page |
-| `prompts.md` | The full LLM conversation, unedited |
-| `extensions.md` | Which assumptions could be relaxed, and which are dead ends |
-| `hand/` | The derivation of Proposition 2.1, written out by hand |
-| `presentation.tex` / `.pdf` | The 5-minute Beamer deck |
-| `paper/` | The article itself |
-| `extra/` | Above the floor: a full tutorial of the paper and two lecture decks |
+El número de lenguajes observados en el mes es:
 
-## What is required
+\[
+N^g_{it}
+=
+\sum_k Z^g_{ik,t}.
+\]
 
-Only four things. The rest of this repository is above the floor.
+### Producción solo
 
-1. **`README.md`** — one page: the question, the agent's problem, the main result
-   **with all its conditions**.
-2. **`prompts.md`** — your prompts and the answers, **raw**. Do not tidy them up:
-   the value is in seeing where the model went wrong.
-3. **`hand/`** — at least one photograph of something you derived by hand. Not the
-   whole paper: the one step you did not believe until you did it yourself.
-4. **`presentation.tex` / `.pdf`** — the 5-minute deck, source and compiled.
+El excedente bajo producción solo es:
 
-Deadline is **Tuesday 22:00**, work merged into `main` through a pull request,
-and the repository URL posted as a comment on that week's issue.
+\[
+V^S
+=
+\omega
++
+s\mu
+-
+\frac{\rho s^2}{2\pi}
+-
+b.
+\]
 
-## About `hand/`
+El lenguaje se usa si:
 
-`hand/prop-2-1-derivacion-a-mano.pdf` is three phone photos of a notebook page.
-That is exactly the standard: crooked, with crossings-out, no transcription. What
-it shows is the first-order condition and the interior-versus-corner split written
-out step by step — the part I did not want to take on trust.
+\[
+V^S\ge 0.
+\]
 
-## About the LLM conversation
+Despejando:
 
-`prompts.md` is the export of the session that produced the tutorial in `extra/`.
-Read it for what it gets wrong as much as for what it gets right. The episode
-worth studying is on slide 4 of the presentation: asked for "the most natural
-extension", the model confidently proposed relaxing the linear cost — which the
-authors had already done in Appendix D. It took opening the appendix to find out.
+\[
+\omega+s\mu-\frac{\rho s^2}{2\pi}-b\ge 0,
+\]
+
+\[
+\omega\ge b-s\mu+\frac{\rho s^2}{2\pi}.
+\]
+
+Entonces el umbral de entrada bajo producción solo es:
+
+\[
+\boxed{
+T^S
+=
+b-s\mu+\frac{\rho s^2}{2\pi}
+}
+\]
+
+y se cumple:
+
+\[
+V^S\ge 0
+\Longleftrightarrow
+\omega\ge T^S.
+\]
+
+### Asistencia conversacional
+
+La IA conversacional agrega un beneficio proporcional a la habilidad existente:
+
+\[
+V^C
+=
+V^S+\gamma s-r_C.
+\]
+
+Por tanto, su umbral es:
+
+\[
+T^C
+=
+T^S-(\gamma s-r_C).
+\]
+
+Antes de Claude Code, el umbral efectivo es:
+
+\[
+T^1
+=
+\min\{T^S,T^C\}.
+\]
+
+Como:
+
+\[
+T^C=T^S-(\gamma s-r_C),
+\]
+
+entonces:
+
+\[
+T^1
+=
+T^S-\max\{0,\gamma s-r_C\}.
+\]
+
+Para lenguajes desconocidos, el paper asume:
+
+\[
+\gamma s-r_C\le 0.
+\]
+
+Es decir, la IA conversacional no reduce el umbral de entrada si el desarrollador no tiene una base previa en ese lenguaje. Por tanto:
+
+\[
+\boxed{
+T^1=T^S.
+}
+\]
+
+### Delegación agentic con Claude Code
+
+Claude Code introduce un nuevo modo de producción: la delegación.
+
+El excedente bajo delegación es:
+
+\[
+\begin{aligned}
+V^D
+&=
+\omega
++
+(1-\lambda)s\mu
++
+\lambda a z(A)
+-
+\kappa(a,s)
+-
+r_D
+-
+b\\
+&\quad
+-
+\frac{\rho}{2}
+\left[
+(1-\lambda)^2\frac{s^2}{\pi}
++
+\sigma_D^2(a,s,A)
+\right].
+\end{aligned}
+\]
+
+El lenguaje se activa si:
+
+\[
+V^D\ge 0.
+\]
+
+Despejando \(\omega\), se obtiene el umbral de delegación:
+
+\[
+\boxed{
+\begin{aligned}
+T^D
+&=
+b
+-
+(1-\lambda)s\mu
+-
+\lambda a z(A)
++
+\kappa(a,s)
++
+r_D\\
+&\quad+
+\frac{\rho}{2}
+\left[
+(1-\lambda)^2\frac{s^2}{\pi}
++
+\sigma_D^2(a,s,A)
+\right].
+\end{aligned}
+}
+\]
+
+Entonces:
+
+\[
+V^D\ge 0
+\Longleftrightarrow
+\omega\ge T^D.
+\]
+
+Después de Claude Code, el umbral efectivo es:
+
+\[
+T^2
+=
+\min\{T^1,T^D\}.
+\]
+
+Como el desarrollador siempre puede ignorar Claude Code, el nuevo menú no puede empeorar sus opciones dentro del modelo:
+
+\[
+\boxed{
+T^2\le T^1.
+}
+\]
+
+## 3. Resultado principal
+
+El resultado principal del modelo es que Claude Code puede expandir el número esperado de lenguajes observados si la delegación reduce el umbral de entrada a lenguajes desconocidos.
+
+Para lenguajes desconocidos, ya se tiene:
+
+\[
+T^1=T^S.
+\]
+
+El paper define la reducción del umbral por delegación como:
+
+\[
+B
+\equiv
+T^1-T^D.
+\]
+
+Como \(T^1=T^S\), entonces:
+
+\[
+B=T^S-T^D.
+\]
+
+Sustituyendo:
+
+\[
+T^S
+=
+b-s\mu+\frac{\rho s^2}{2\pi}
+\]
+
+y
+
+\[
+\begin{aligned}
+T^D
+&=
+b
+-
+(1-\lambda)s\mu
+-
+\lambda a z(A)
++
+\kappa(a,s)
++
+r_D\\
+&\quad+
+\frac{\rho}{2}
+\left[
+(1-\lambda)^2\frac{s^2}{\pi}
++
+\sigma_D^2(a,s,A)
+\right],
+\end{aligned}
+\]
+
+se obtiene:
+
+\[
+\begin{aligned}
+B
+&=
+\left(
+b-s\mu+\frac{\rho s^2}{2\pi}
+\right)
+-
+\Bigg[
+b
+-
+(1-\lambda)s\mu
+-
+\lambda a z(A)
++
+\kappa(a,s)
++
+r_D\\
+&\qquad\qquad+
+\frac{\rho}{2}
+\left[
+(1-\lambda)^2\frac{s^2}{\pi}
++
+\sigma_D^2(a,s,A)
+\right]
+\Bigg].
+\end{aligned}
+\]
+
+Distribuyendo el signo negativo:
+
+\[
+\begin{aligned}
+B
+&=
+b-s\mu+\frac{\rho s^2}{2\pi}
+-b
++
+(1-\lambda)s\mu
++
+\lambda a z(A)
+-
+\kappa(a,s)
+-
+r_D\\
+&\quad
+-
+\frac{\rho}{2}
+\left[
+(1-\lambda)^2\frac{s^2}{\pi}
++
+\sigma_D^2(a,s,A)
+\right].
+\end{aligned}
+\]
+
+Cancelando \(b-b=0\):
+
+\[
+\begin{aligned}
+B
+&=
+-s\mu
++
+(1-\lambda)s\mu
++
+\lambda a z(A)
+-
+\kappa(a,s)
+-
+r_D\\
+&\quad
++
+\frac{\rho s^2}{2\pi}
+-
+\frac{\rho}{2}
+\left[
+(1-\lambda)^2\frac{s^2}{\pi}
++
+\sigma_D^2(a,s,A)
+\right].
+\end{aligned}
+\]
+
+Simplificando los términos con \(s\mu\):
+
+\[
+-s\mu+(1-\lambda)s\mu
+=
+-\lambda s\mu.
+\]
+
+Simplificando los términos de riesgo:
+
+\[
+\frac{\rho s^2}{2\pi}
+-
+\frac{\rho}{2}
+(1-\lambda)^2\frac{s^2}{\pi}
+=
+\frac{\rho}{2}
+\left[
+1-(1-\lambda)^2
+\right]
+\frac{s^2}{\pi}.
+\]
+
+Como:
+
+\[
+1-(1-\lambda)^2
+=
+1-(1-2\lambda+\lambda^2)
+=
+2\lambda-\lambda^2,
+\]
+
+entonces:
+
+\[
+\boxed{
+B
+=
+\lambda\left[a z(A)-s\mu\right]
+-
+\kappa(a,s)
+-
+r_D
++
+\frac{\rho}{2}
+\left[
+(2\lambda-\lambda^2)\frac{s^2}{\pi}
+-
+\sigma_D^2(a,s,A)
+\right].
+}
+\]
+
+Si:
+
+\[
+B>0,
+\]
+
+entonces:
+
+\[
+T^S-T^D>0,
+\]
+
+por tanto:
+
+\[
+\boxed{
+T^D<T^S.
+}
+\]
+
+Esto significa que Claude Code reduce el umbral de entrada para ese lenguaje desconocido.
+
+El cambio en la activación de un lenguaje es:
+
+\[
+Z^2-Z^1
+=
+\mathbf{1}
+\left[
+T^D\le \omega<T^S
+\right].
+\]
+
+Este intervalo es la **banda de activación**:
+
+\[
+\boxed{
+T^D\le \omega<T^S.
+}
+\]
+
+Interpretación:
+
+- Si \(\omega<T^D\), el lenguaje no se usa ni siquiera con Claude Code.
+- Si \(\omega\ge T^S\), el lenguaje ya era rentable sin Claude Code.
+- Si \(T^D\le \omega<T^S\), el lenguaje solo se vuelve viable gracias a la delegación agentic.
+
+Sumando sobre lenguajes:
+
+\[
+N^2-N^1
+=
+\sum_k (Z^2_k-Z^1_k).
+\]
+
+Tomando esperanza:
+
+\[
+\mathbb{E}[N^2-N^1]
+=
+\sum_k
+\mathbb{E}[Z^2_k-Z^1_k].
+\]
+
+Como:
+
+\[
+Z^g_k
+=
+\mathbf{1}[\omega_k\ge T^g_k],
+\]
+
+entonces:
+
+\[
+\mathbb{E}[Z^g_k]
+=
+\Pr(\omega_k\ge T^g_k)
+=
+1-F_k(T^g_k).
+\]
+
+Por tanto:
+
+\[
+\begin{aligned}
+\mathbb{E}[Z^2_k-Z^1_k]
+&=
+[1-F_k(T^2_k)]-[1-F_k(T^1_k)]\\
+&=
+F_k(T^1_k)-F_k(T^2_k).
+\end{aligned}
+\]
+
+Finalmente:
+
+\[
+\boxed{
+\mathbb{E}[N^2-N^1]
+=
+\sum_k
+\left[
+F_k(T^1_k)-F_k(T^2_k)
+\right]
+\ge 0.
+}
+\]
+
+Para lenguajes desconocidos activados por Claude Code:
+
+\[
+\boxed{
+\mathbb{E}[N^2-N^1]
+=
+\sum_{k\in U_i}
+\left[
+F_k(T^S_k)-F_k(T^D_k)
+\right]
+\ge 0.
+}
+\]
+
+La cadena completa del modelo es:
+
+\[
+\boxed{
+\text{Claude Code}
+\Longrightarrow
+T^D<T^S
+\Longrightarrow
+Z^2-Z^1
+=
+\mathbf{1}[T^D\le \omega<T^S]
+\Longrightarrow
+\mathbb{E}[N^2-N^1]\ge0.
+}
+\]
+
+## 4. Condiciones
+
+El resultado depende de varias condiciones importantes.
+
+### Condición 1: la IA conversacional no mueve el umbral en lenguajes desconocidos
+
+Para lenguajes desconocidos, el paper requiere:
+
+\[
+\gamma s-r_C\le 0.
+\]
+
+Esto implica:
+
+\[
+T^1=T^S.
+\]
+
+La interpretación es que ChatGPT, Copilot u otra IA conversacional ayudan sobre todo cuando el desarrollador ya tiene una base en el lenguaje. Si el lenguaje es desconocido, la asistencia conversacional no basta para reducir el umbral de entrada.
+
+### Condición 2: la delegación debe reducir el umbral
+
+La condición central es:
+
+\[
+B>0.
+\]
+
+Esto equivale a:
+
+\[
+T^D<T^S.
+\]
+
+En términos económicos, la delegación debe generar beneficios netos mayores que sus costos.
+
+La expresión de \(B\) muestra que esto depende de:
+
+\[
+\lambda\left[a z(A)-s\mu\right]
+\]
+
+como ganancia esperada por sustitución de ejecución humana por ejecución agentic;
+
+\[
+-\kappa(a,s)-r_D
+\]
+
+como costos de verificación y uso de la delegación;
+
+y
+
+\[
+\frac{\rho}{2}
+\left[
+(2\lambda-\lambda^2)\frac{s^2}{\pi}
+-
+\sigma_D^2(a,s,A)
+\right]
+\]
+
+como efecto neto sobre el riesgo.
+
+Por tanto, Claude Code reduce el umbral solo si la ganancia por delegar y la reducción de riesgo compensan los costos de verificar, dirigir y usar el agente.
+
+### Condición 3: la oportunidad debe caer dentro de la banda de activación
+
+No basta con que \(T^D<T^S\). Para que el lenguaje nuevo efectivamente se observe, la oportunidad \(\omega\) debe estar en el intervalo:
+
+\[
+T^D\le \omega<T^S.
+\]
+
+Ese es el conjunto de oportunidades que antes no eran rentables y que ahora sí lo son.
+
+### Condición 4: la distribución de oportunidades debe asignar masa a esa banda
+
+El aumento esperado en lenguajes depende de:
+
+\[
+F_k(T^S_k)-F_k(T^D_k).
+\]
+
+Si no hay oportunidades en ese intervalo, la banda existe formalmente, pero no genera nuevos lenguajes observados.
+
+## 5. Crítica: vulnerabilidad causal del modelo
+
+La principal debilidad no está en la derivación algebraica. Si se aceptan los supuestos del modelo, el resultado es coherente:
+
+\[
+B>0
+\Longrightarrow
+T^D<T^S
+\Longrightarrow
+\mathbb{E}[N^2-N^1]\ge0.
+\]
+
+La vulnerabilidad está en el primer supuesto económico, que puede expresarse así:
+
+\[
+\boxed{
+\text{Claude Code}
+\;\Longrightarrow\;
+\Delta>0
+}
+\]
+
+donde \(\Delta\) representa la reducción efectiva del costo o del umbral de entrada gracias a la delegación.
+
+En el lenguaje del modelo, esa idea aparece como:
+
+\[
+B=T^S-T^D>0.
+\]
+
+Es decir, el paper necesita que Claude Code reduzca el umbral:
+
+\[
+T^D<T^S.
+\]
+
+Pero ese paso no es observado directamente en los datos. El paper no observa \(\Delta\), ni observa directamente cuánto cayó el costo de producir en un lenguaje desconocido. Tampoco observa perfectamente cuánto trabajo fue delegado al agente, cuánto verificó el humano o si el desarrollador ya tenía planeado entrar a ese lenguaje.
+
+La evidencia empírica muestra algo más limitado:
+
+\[
+\boxed{
+\text{Claude Code}
+\;\Longrightarrow\;
+\text{más lenguajes observados}
+}
+\]
+
+Es decir, alrededor de la adopción de Claude Code se observa un aumento en lenguajes activos, lenguajes nuevos y diversidad del portafolio. Ese patrón es consistente con el modelo, pero no prueba por sí solo que el mecanismo causal sea la reducción del costo por delegación.
+
+La vulnerabilidad es que existe una explicación alternativa:
+
+\[
+\boxed{
+\text{Nuevo proyecto en lenguaje desconocido}
+\Longrightarrow
+\text{adopción de Claude Code}
+\Longrightarrow
+\text{más lenguajes observados}
+}
+\]
+
+Por ejemplo, un desarrollador podría decidir iniciar un proyecto en Rust. Como Rust le resulta difícil, instala Claude Code para ayudarse. En ese caso, el nuevo lenguaje no aparece porque Claude Code redujo exógenamente el umbral de entrada, sino porque el proyecto ya había cambiado antes de la adopción. Claude Code sería una respuesta al nuevo proyecto, no necesariamente la causa de la expansión del portafolio.
+
+Por eso, la diferencia clave es:
+
+\[
+\boxed{
+\text{Derivación matemática correcta}
+\neq
+\text{identificación causal convincente}
+}
+\]
+
+La derivación demuestra una implicación condicional:
+
+\[
+\boxed{
+\Delta>0
+\Longrightarrow
+\text{más lenguajes observados en esperanza}
+}
+\]
+
+pero no demuestra empíricamente que:
+
+\[
+\boxed{
+\text{Claude Code}
+\Longrightarrow
+\Delta>0.
+}
+\]
+
+El paper reconoce esta limitación: la adopción es voluntaria y puede coincidir con shocks de proyectos. Por eso, aunque los resultados son consistentes con el mecanismo de delegación agentic, la interpretación más prudente es asociacional, no causal definitiva. Para cerrar esta vulnerabilidad haría falta variación exógena en la adopción de Claude Code, como cambios de precios, reglas de elegibilidad, despliegues institucionales o algún diseño que permita separar la decisión de adoptar Claude Code de la decisión previa de empezar proyectos en nuevos lenguajes.
