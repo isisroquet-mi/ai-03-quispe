@@ -327,9 +327,16 @@ $$
 Simplificando los términos de riesgo:
 
 $$
-\frac{\rho s^2}{2\pi}-\frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
-=\frac{\rho}{2}\left[1-(1-\lambda)^2\right]\frac{s^2}{\pi}
+\frac{\rho s^2}{2\pi}
+- \frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
+=
+\frac{\rho}{2}
+\left[
+1-(1-\lambda)^2
+\right]
+\frac{s^2}{\pi}
 $$
+
 Como:
 
 $$
