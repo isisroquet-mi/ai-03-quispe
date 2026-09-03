@@ -328,7 +328,8 @@ Simplificando los términos de riesgo:
 
 $$
 \frac{\rho s^2}{2\pi}
-- \frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
+-
+\frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
 =
 \frac{\rho}{2}
 \left[
@@ -341,8 +342,10 @@ Como:
 
 $$
 1-(1-\lambda)^2
-= 1-(1-2\lambda+\lambda^2)
-= 2\lambda-\lambda^2
+=
+1-(1-2\lambda+\lambda^2)
+=
+2\lambda-\lambda^2
 $$
 
 entonces:
@@ -387,21 +390,21 @@ $$
 Z^2-Z^1=
 \mathbf{1}
 \left[
-T^D\le \omega\lt T^S
+T^D\le \omega \lt T^S
 \right]
 $$
 
 Este intervalo es la **banda de activación**:
 
 $$
-\boxed{T^D\le \omega\ltT^S}
+\boxed{T^D\le \omega \lt T^S}
 $$
 
 Interpretación:
 
-- Si $\omega\ltT^D$, el lenguaje no se usa ni siquiera con Claude Code.
+- Si $\omega \lt T^D$, el lenguaje no se usa ni siquiera con Claude Code.
 - Si $\omega\ge T^S$, el lenguaje ya era rentable sin Claude Code.
-- Si $T^D\le \omega\ltT^S$, el lenguaje solo se vuelve viable gracias a la delegación agentic.
+- Si $T^D\le \omega \lt T^S$, el lenguaje solo se vuelve viable gracias a la delegación agentic.
 
 Sumando sobre lenguajes:
 
@@ -413,7 +416,8 @@ Tomando esperanza:
 
 $$
 \mathbb{E}[N^2-N^1]
-= \sum_k \mathbb{E}[Z^2_k-Z^1_k]
+=
+\sum_k \mathbb{E}[Z^2_k-Z^1_k]
 $$
 
 Como:
@@ -426,8 +430,10 @@ entonces:
 
 $$
 \mathbb{E}[Z^g_k]
-= \Pr(\omega_k\ge T^g_k)
-= 1-F_k(T^g_k)
+=
+\Pr(\omega_k\ge T^g_k)
+=
+1-F_k(T^g_k)
 $$
 
 Por tanto:
@@ -447,7 +453,8 @@ Finalmente:
 $$
 \boxed{
 \mathbb{E}[N^2-N^1]
-= \sum_k
+=
+\sum_k
 \left[
 F_k(T^1_k)-F_k(T^2_k)
 \right]
@@ -460,7 +467,8 @@ Para lenguajes desconocidos activados por Claude Code:
 $$
 \boxed{
 \mathbb{E}[N^2-N^1]
-= \sum_{k\in U_i}
+=
+\sum_{k\in U_i}
 \left[
 F_k(T^S_k)-F_k(T^D_k)
 \right]
@@ -471,18 +479,17 @@ $$
 La cadena completa del modelo es:
 
 $$
-\boxed{
 \begin{gathered}
 \text{Código Claude}
 \Longrightarrow
-T^D\ltT^S
+T^D \lt T^S
 \Longrightarrow
 Z^2-Z^1
-=\mathbf{1}\left[T^D\le \omega\ltT^S\right]
+=
+\mathbf{1}\left[T^D\le \omega \lt T^S\right]
 \Longrightarrow
 \mathbb{E}[N^2-N^1]\ge 0
 \end{gathered}
-}
 $$
 
 ## 4. Condiciones
@@ -516,7 +523,7 @@ $$
 Esto equivale a:
 
 $$
-T^D\ltT^S
+T^D \lt T^S
 $$
 
 En términos económicos, la delegación debe generar beneficios netos mayores que sus costos.
@@ -551,10 +558,10 @@ Por tanto, Claude Code reduce el umbral solo si la ganancia por delegar y la red
 
 ### Condición 3: la oportunidad debe caer dentro de la banda de activación
 
-No basta con que $T^D\ltT^S$. Para que el lenguaje nuevo efectivamente se observe, la oportunidad $\omega$ debe estar en el intervalo:
+No basta con que $T^D \lt T^S$. Para que el lenguaje nuevo efectivamente se observe, la oportunidad $\omega$ debe estar en el intervalo:
 
 $$
-T^D\le \omega\ltT^S
+T^D\le \omega \lt T^S
 $$
 
 Ese es el conjunto de oportunidades que antes no eran rentables y que ahora sí lo son.
@@ -576,7 +583,7 @@ La principal debilidad no está en la derivación algebraica. Si se aceptan los 
 $$
 B>0
 \Longrightarrow
-T^D\ltT^S
+T^D \lt T^S
 \Longrightarrow
 \mathbb{E}[N^2-N^1]\ge0
 $$
@@ -602,7 +609,7 @@ $$
 Es decir, el paper necesita que Claude Code reduzca el umbral:
 
 $$
-T^D\ltT^S
+T^D \lt T^S
 $$
 
 Pero ese paso no es observado directamente en los datos. El paper no observa $\Delta$, ni observa directamente cuánto cayó el costo de producir en un lenguaje desconocido. Tampoco observa perfectamente cuánto trabajo fue delegado al agente, cuánto verificó el humano o si el desarrollador ya tenía planeado entrar a ese lenguaje.
