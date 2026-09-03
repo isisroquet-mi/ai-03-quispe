@@ -2,7 +2,7 @@
 
 ## 1. Pregunta
 
-El paper pregunta si los asistentes de programación **agentic** —en particular Claude Code— expanden la frontera de producción de los desarrolladores de software.
+El paper pregunta si los asistentes de programación **agentic** -en particular Claude Code- expanden la frontera de producción de los desarrolladores de software.
 
 La idea central no es solo que Claude Code aumente la productividad en lenguajes que el desarrollador ya conoce, sino que pueda permitirle producir en lenguajes que antes estaban fuera de su portafolio observado.
 
@@ -328,10 +328,8 @@ Simplificando los términos de riesgo:
 
 $$
 \frac{\rho s^2}{2\pi}
--
-\frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
-=
-\frac{\rho}{2}
+-\frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
+=\frac{\rho}{2}
 \left[
 1-(1-\lambda)^2
 \right]
@@ -342,10 +340,8 @@ Como:
 
 $$
 1-(1-\lambda)^2
-=
-1-(1-2\lambda+\lambda^2)
-=
-2\lambda-\lambda^2
+=1-(1-2\lambda+\lambda^2)
+=2\lambda-\lambda^2
 $$
 
 entonces:
@@ -416,8 +412,7 @@ Tomando esperanza:
 
 $$
 \mathbb{E}[N^2-N^1]
-=
-\sum_k \mathbb{E}[Z^2_k-Z^1_k]
+=\sum_k \mathbb{E}[Z^2_k-Z^1_k]
 $$
 
 Como:
@@ -430,10 +425,8 @@ entonces:
 
 $$
 \mathbb{E}[Z^g_k]
-=
-\Pr(\omega_k\ge T^g_k)
-=
-1-F_k(T^g_k)
+=\Pr(\omega_k\ge T^g_k)
+=1-F_k(T^g_k)
 $$
 
 Por tanto:
@@ -453,8 +446,7 @@ Finalmente:
 $$
 \boxed{
 \mathbb{E}[N^2-N^1]
-=
-\sum_k
+=\sum_k
 \left[
 F_k(T^1_k)-F_k(T^2_k)
 \right]
@@ -467,8 +459,7 @@ Para lenguajes desconocidos activados por Claude Code:
 $$
 \boxed{
 \mathbb{E}[N^2-N^1]
-=
-\sum_{k\in U_i}
+=\sum_{k\in U_i}
 \left[
 F_k(T^S_k)-F_k(T^D_k)
 \right]
@@ -485,8 +476,7 @@ $$
 T^D \lt T^S
 \Longrightarrow
 Z^2-Z^1
-=
-\mathbf{1}\left[T^D\le \omega \lt T^S\right]
+=\mathbf{1}\left[T^D\le \omega \lt T^S\right]
 \Longrightarrow
 \mathbb{E}[N^2-N^1]\ge 0
 \end{gathered}
