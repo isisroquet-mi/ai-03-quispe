@@ -472,14 +472,16 @@ La cadena completa del modelo es:
 
 $$
 \boxed{
-\text{Claude Code}
+\begin{gathered}
+\text{Código Claude}
 \Longrightarrow
 T^D<T^S
 \Longrightarrow
-Z^2-Z^1=
-\mathbf{1}[T^D\le \omega<T^S]
+Z^2-Z^1
+=\mathbf{1}\left[T^D\le \omega<T^S\right]
 \Longrightarrow
-\mathbb{E}[N^2-N^1]\ge0
+\mathbb{E}[N^2-N^1]\ge 0
+\end{gathered}
 }
 $$
 
