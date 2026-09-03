@@ -376,7 +376,7 @@ $$
 por tanto:
 
 $$
-\boxed{T^D<T^S}
+\boxed{T^D \lt T^S}
 $$
 
 Esto significa que Claude Code reduce el umbral de entrada para ese lenguaje desconocido.
@@ -387,21 +387,21 @@ $$
 Z^2-Z^1=
 \mathbf{1}
 \left[
-T^D\le \omega<T^S
+T^D\le \omega\lt T^S
 \right]
 $$
 
 Este intervalo es la **banda de activación**:
 
 $$
-\boxed{T^D\le \omega<T^S}
+\boxed{T^D\le \omega\ltT^S}
 $$
 
 Interpretación:
 
-- Si $\omega<T^D$, el lenguaje no se usa ni siquiera con Claude Code.
+- Si $\omega\ltT^D$, el lenguaje no se usa ni siquiera con Claude Code.
 - Si $\omega\ge T^S$, el lenguaje ya era rentable sin Claude Code.
-- Si $T^D\le \omega<T^S$, el lenguaje solo se vuelve viable gracias a la delegación agentic.
+- Si $T^D\le \omega\ltT^S$, el lenguaje solo se vuelve viable gracias a la delegación agentic.
 
 Sumando sobre lenguajes:
 
@@ -475,10 +475,10 @@ $$
 \begin{gathered}
 \text{Código Claude}
 \Longrightarrow
-T^D<T^S
+T^D\ltT^S
 \Longrightarrow
 Z^2-Z^1
-=\mathbf{1}\left[T^D\le \omega<T^S\right]
+=\mathbf{1}\left[T^D\le \omega\ltT^S\right]
 \Longrightarrow
 \mathbb{E}[N^2-N^1]\ge 0
 \end{gathered}
@@ -516,7 +516,7 @@ $$
 Esto equivale a:
 
 $$
-T^D<T^S
+T^D\ltT^S
 $$
 
 En términos económicos, la delegación debe generar beneficios netos mayores que sus costos.
@@ -551,10 +551,10 @@ Por tanto, Claude Code reduce el umbral solo si la ganancia por delegar y la red
 
 ### Condición 3: la oportunidad debe caer dentro de la banda de activación
 
-No basta con que $T^D<T^S$. Para que el lenguaje nuevo efectivamente se observe, la oportunidad $\omega$ debe estar en el intervalo:
+No basta con que $T^D\ltT^S$. Para que el lenguaje nuevo efectivamente se observe, la oportunidad $\omega$ debe estar en el intervalo:
 
 $$
-T^D\le \omega<T^S
+T^D\le \omega\ltT^S
 $$
 
 Ese es el conjunto de oportunidades que antes no eran rentables y que ahora sí lo son.
@@ -576,7 +576,7 @@ La principal debilidad no está en la derivación algebraica. Si se aceptan los 
 $$
 B>0
 \Longrightarrow
-T^D<T^S
+T^D\ltT^S
 \Longrightarrow
 \mathbb{E}[N^2-N^1]\ge0
 $$
@@ -602,7 +602,7 @@ $$
 Es decir, el paper necesita que Claude Code reduzca el umbral:
 
 $$
-T^D<T^S
+T^D\ltT^S
 $$
 
 Pero ese paso no es observado directamente en los datos. El paper no observa $\Delta$, ni observa directamente cuánto cayó el costo de producir en un lenguaje desconocido. Tampoco observa perfectamente cuánto trabajo fue delegado al agente, cuánto verificó el humano o si el desarrollador ya tenía planeado entrar a ese lenguaje.
