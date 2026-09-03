@@ -260,8 +260,7 @@ B
 \left(
 b-s\mu+\frac{\rho s^2}{2\pi}
 \right)
--
-\Bigg[
+-\Bigg[
 b
 -(1-\lambda)s\mu
 -\lambda az(A)
@@ -329,8 +328,7 @@ Simplificando los términos de riesgo:
 
 $$
 \frac{\rho s^2}{2\pi}
--
-\frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
+- \frac{\rho}{2}(1-\lambda)^2\frac{s^2}{\pi}
 =
 \frac{\rho}{2}
 \left[
@@ -343,10 +341,8 @@ Como:
 
 $$
 1-(1-\lambda)^2
-=
-1-(1-2\lambda+\lambda^2)
-=
-2\lambda-\lambda^2
+= 1-(1-2\lambda+\lambda^2)
+= 2\lambda-\lambda^2
 $$
 
 entonces:
@@ -417,8 +413,7 @@ Tomando esperanza:
 
 $$
 \mathbb{E}[N^2-N^1]
-=
-\sum_k \mathbb{E}[Z^2_k-Z^1_k]
+= \sum_k \mathbb{E}[Z^2_k-Z^1_k]
 $$
 
 Como:
@@ -431,10 +426,8 @@ entonces:
 
 $$
 \mathbb{E}[Z^g_k]
-=
-\Pr(\omega_k\ge T^g_k)
-=
-1-F_k(T^g_k)
+= \Pr(\omega_k\ge T^g_k)
+= 1-F_k(T^g_k)
 $$
 
 Por tanto:
@@ -454,8 +447,7 @@ Finalmente:
 $$
 \boxed{
 \mathbb{E}[N^2-N^1]
-=
-\sum_k
+= \sum_k
 \left[
 F_k(T^1_k)-F_k(T^2_k)
 \right]
@@ -468,8 +460,7 @@ Para lenguajes desconocidos activados por Claude Code:
 $$
 \boxed{
 \mathbb{E}[N^2-N^1]
-=
-\sum_{k\in U_i}
+= \sum_{k\in U_i}
 \left[
 F_k(T^S_k)-F_k(T^D_k)
 \right]
