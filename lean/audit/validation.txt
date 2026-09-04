@@ -1,0 +1,23 @@
+Validation record
+=================
+
+Target: QX26AgenticDelegation
+Lean version requested: v4.30.0-rc2
+Mathlib: v4.30.0-rc2
+Selected declarations: 5
+Use of sorry/admit/custom axiom: none
+
+The official paper_contribution.py facade imports Unix fcntl and cannot run
+on this Windows host. The folder therefore records an independent, deterministic
+EconCSLib-style pass rather than claiming a full repository closeout.
+
+Browser-based elaboration result
+--------------------------------
+
+The concatenated contents of Model.lean, PaperInterface.lean,
+MainTheorems.lean, and ProofInterface.lean were elaborated with Mathlib on
+Lean v4.34.0-rc2 on 2026-09-03. Result: 0 messages, 0 errors.
+
+This confirms the declarations and proof terms on a newer compatible Lean
+surface. Exact local v4.30.0-rc2 execution remains unavailable because the
+Windows host could not download the pinned toolchain through elan.
