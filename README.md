@@ -661,3 +661,9 @@ $$
 $$
 
 El paper reconoce esta limitación: la adopción es voluntaria y puede coincidir con shocks de proyectos. Por eso, aunque los resultados son consistentes con el mecanismo de delegación agentic, la interpretación más prudente es asociacional, no causal definitiva. Para cerrar esta vulnerabilidad haría falta variación exógena en la adopción de Claude Code, como cambios de precios, reglas de elegibilidad, despliegues institucionales o algún diseño que permita separar la decisión de adoptar Claude Code de la decisión previa de empezar proyectos en nuevos lenguajes.
+
+## 6. Formalización Lean
+
+La carpeta [`lean/`](lean/) contiene una ejecución independiente y auditable del flujo de formalización para el mecanismo de umbrales. El estado es **parcialmente formalizado**: Lean verifica la identidad de la ganancia de umbral, la expansión débil del menú, la equivalencia entre ganancia positiva y menor umbral, la banda exacta de activación y la implicación de una CDF monótona.
+
+El resultado más útil para la presentación es `activation_band`: si $T^D<T^S$, las oportunidades que se vuelven viables gracias a la delegación son exactamente aquellas con $T^D\leq\omega<T^S$. La formalización mantiene visible el límite económico: no prueba que Claude Code cause $T^D<T^S$ en los datos.
