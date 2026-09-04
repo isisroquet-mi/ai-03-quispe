@@ -1,0 +1,19 @@
+name = "QX26AgenticDelegation"
+version = "0.1.0"
+keywords = ["economics", "formalization", "lean4"]
+defaultTargets = ["QX26AgenticDelegation"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+weak.linter.unnecessarySimpa = false
+weak.linter.unusedVariables = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.30.0-rc2"
+
+[[lean_lib]]
+name = "QX26AgenticDelegation"
