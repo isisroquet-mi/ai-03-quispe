@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "paper": "QX26AgenticDelegation",
+  "scope": "selected threshold mechanism",
+  "items": [
+    {"id": "threshold-gain", "source": "B = T^S - T^D and its expanded formula", "spec": "thresholdGainIdentitySpec", "proof": "thresholdGain_identity", "status": "proved"},
+    {"id": "menu-expansion", "source": "T^2 = min{T^1,T^D} implies T^2 <= T^1", "spec": "menuExpansionSpec", "proof": "menu_expansion", "status": "proved"},
+    {"id": "positive-gain", "source": "B > 0 equivalently T^D < T^S", "spec": "positiveGainSpec", "proof": "positive_gain_iff_lower_threshold", "status": "proved"},
+    {"id": "activation-band", "source": "new activation occurs for T^D <= omega < T^S", "spec": "activationBandSpec", "proof": "activation_band", "status": "proved"},
+    {"id": "expected-expansion", "source": "F(T^1)-F(T^2) >= 0", "spec": "expectedExpansionSpec", "proof": "expected_expansion_nonnegative", "status": "proved"}
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "id": "QX26AgenticDelegation",
+  "title": "Coding Beyond Your Training: Claude Code and the Technological Frontier of Software Developers",
+  "authors": "Alexander Quispe and Kunmeng Xu",
+  "source_version": "arXiv:2605.25438 (2026)",
+  "build_target": "QX26AgenticDelegation",
+  "status": "partially formalized",
+  "main_caveat": "The threshold mechanism is checked; the empirical identification strategy and the full paper are outside this pass.",
+  "human_summary": "Formalizes the delegation threshold identity, menu monotonicity, activation band, and monotone-CDF expected-expansion implication.",
+  "review_surface": {
+    "source_file": "PaperInterface.lean",
+    "assumption_source_file": "Assumptions.lean",
+    "include_names": [
+      "thresholdGainIdentitySpec",
+      "menuExpansionSpec",
+      "positiveGainSpec",
+      "activationBandSpec",
+      "expectedExpansionSpec"
+    ],
+    "assumption_names": []
+  },
+  "validation": {
+    "contains_sorry": false,
+    "contains_admit": false,
+    "contains_custom_axiom": false,
+    "platform_note": "The Unix-only contribution facade was unavailable on Windows; the deterministic structure and proof files were produced directly and validated separately."
+  }
+}

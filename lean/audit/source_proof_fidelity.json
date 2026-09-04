@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "paper": "QX26AgenticDelegation",
+  "assessment": "partial_source_faithful",
+  "checks": [
+    {"item": "threshold-gain", "result": "matched", "note": "All signs, the (2 lambda - lambda^2) factor, precision denominator, variance term, verification cost, and delegation cost are visible."},
+    {"item": "activation-band", "result": "matched", "note": "Both weak lower and strict upper inequalities are preserved."},
+    {"item": "expected-expansion", "result": "matched_with_visible_premise", "note": "CDF monotonicity is explicit; the result is not presented as causal evidence."}
+  ],
+  "known_boundary": "The empirical claims and causal interpretation are not Lean theorems in this pass."
+}
