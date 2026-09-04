@@ -1,114 +1,346 @@
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[aspectratio=169,10pt]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
-\usetheme{default}
-\usecolortheme{seahorse}
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
-\setbeamerfont{frametitle}{size=\large}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,array,graphicx,xcolor,listings,hyperref}
 
-\title{Aouad, Lykouris \& Zhong (2026)}
-\subtitle{\emph{Human-AI Productivity Paradoxes} --- Section 2}
+\definecolor{Navy}{HTML}{17324D}
+\definecolor{Teal}{HTML}{0F6B78}
+\definecolor{Gold}{HTML}{C89B3C}
+\definecolor{Ink}{HTML}{18232E}
+\definecolor{Muted}{HTML}{5B6873}
+\definecolor{Paper}{HTML}{F7F5F0}
+\definecolor{PaleTeal}{HTML}{E7F0F1}
+\definecolor{PaleGold}{HTML}{F5EBD5}
+\definecolor{CodeBg}{HTML}{F1F3F5}
+
+\setbeamercolor{normal text}{fg=Ink,bg=Paper}
+\setbeamercolor{structure}{fg=Teal}
+\setbeamercolor{frametitle}{fg=white,bg=Navy}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=PaleTeal}
+\setbeamercolor{alerted text}{fg=Teal}
+\setbeamercolor{itemize item}{fg=Gold}
+\setbeamercolor{enumerate item}{fg=Gold}
+\setbeamercolor{block title}{fg=white,bg=Teal}
+\setbeamercolor{block body}{fg=Ink,bg=PaleTeal}
+
+\setbeamerfont{title}{series=\bfseries,size=\LARGE}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{frametitle}{series=\bfseries,size=\Large}
+\setbeamerfont{footline}{size=\scriptsize}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\raise0.15ex\hbox{\color{Gold}$\blacktriangleright$}}
+\setbeamertemplate{itemize subitem}{\raise0.1ex\hbox{\color{Teal}$\bullet$}}
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.84cm,dp=0.22cm,leftskip=0.65cm,rightskip=0.35cm]{frametitle}
+    \usebeamerfont{frametitle}\insertframetitle
+  \end{beamercolorbox}}
+\setbeamertemplate{footline}{%
+  \leavevmode\hbox{%
+    \begin{beamercolorbox}[wd=.86\paperwidth,ht=0.32cm,dp=0.12cm,leftskip=.55cm]{author in head/foot}%
+      \color{Muted}Quispe y Xu (2026) \;\textbar\; IA y Modelamiento Económico
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.14\paperwidth,ht=0.32cm,dp=0.12cm,rightskip=.45cm plus1fil]{date in head/foot}%
+      \color{Muted}\hfill\insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}}}
+\setbeamertemplate{headline}{}
+
+\hypersetup{colorlinks=true,urlcolor=Teal,linkcolor=Teal}
+\newcommand{\key}[1]{\textcolor{Teal}{\textbf{#1}}}
+\newcommand{\source}[1]{\par\vfill{\fontsize{6.2}{7.2}\selectfont\color{Muted}Fuente: #1}}
+\lstdefinelanguage{Lean}{
+  morekeywords={def,theorem,by,intro,unfold,rw,simp,only,Prop,Real},
+  sensitive=true,morecomment=[l]{--},morestring=[b]"
+}
+\lstset{language=Lean,basicstyle=\ttfamily\fontsize{7.2}{8.4}\selectfont,
+  keywordstyle=\bfseries\color{Teal},commentstyle=\itshape\color{Muted},
+  backgroundcolor=\color{CodeBg},frame=single,rulecolor=\color{PaleTeal},
+  showstringspaces=false,columns=fullflexible,keepspaces=true,breaklines=true,
+  xleftmargin=0.15em,xrightmargin=0.15em,aboveskip=0.25em,belowskip=0.25em}
+
+\title{Claude Code y la frontera tecnológica del desarrollador}
+\subtitle{Quispe y Xu (2026): resultado, verificación y límite causal}
 \author{Alexander Quispe}
-\date{Repository 1 \textperiodcentered{} Week of August 17--22}
+\institute{IA y Modelamiento Económico \;\textbar\; Universidad del Pacífico}
+\date{Tarea 2 \;\textbar\; 2026}
 
 \begin{document}
 
-%================= PORTADA (con el enlace al repositorio) =============
+{\setbeamercolor{background canvas}{bg=Navy}
 \begin{frame}[plain]
-  \titlepage
-  \begin{center}\small
-    \texttt{github.com/alexanderquispe/ai-01-aouad}
-  \end{center}
+    \vspace*{1.1cm}\hspace*{0.75cm}\begin{minipage}{0.84\paperwidth}
+      {\color{Gold}\rule{1.45cm}{2.2pt}}\\[0.55cm]
+      {\usebeamerfont{title}\color{white}\inserttitle\par}
+      \vspace{0.25cm}{\usebeamerfont{subtitle}\color{PaleTeal}\insertsubtitle\par}
+      \vspace{0.85cm}{\color{white}\large\insertauthor\par}
+      \vspace{0.12cm}{\color{PaleTeal}\insertinstitute\par}
+      \vspace{0.12cm}{\color{PaleTeal}\insertdate\par}
+      \vspace{0.75cm}{\small\color{white}\href{https://github.com/isisroquet-mi/ai-03-quispe}{github.com/isisroquet-mi/ai-03-quispe}}
+    \end{minipage}
+\end{frame}
+}
+
+\begin{frame}{Pregunta: ¿productividad o expansión de frontera?}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \vspace{0.15cm}
+      \textbf{Objeto económico.} La frontera de producción es el conjunto de lenguajes en los que el desarrollador logra producir código, aunque no los dominara previamente.
+      \vspace{0.42cm}
+      \begin{block}{Pregunta del documento}
+        ¿La adopción de Claude Code permite activar lenguajes que antes quedaban fuera del portafolio observado?
+      \end{block}
+      \vspace{0.25cm}
+      La predicción se evalúa en cuatro márgenes: lenguajes activos, lenguajes nuevos, diversidad y acumulación del portafolio.
+    \end{column}
+    \begin{column}{0.39\textwidth}
+      \centering\vspace{0.15cm}
+      {\color{Muted}\small habilidad previa}\\[0.18cm]
+      {\Large $\mathcal{L}^{\text{habilidad}}_i$}\\[0.35cm]
+      {\color{Gold}\LARGE $\Downarrow$}\\[0.28cm]
+      \colorbox{PaleTeal}{\parbox[c][1.65cm][c]{0.88\linewidth}{\centering
+        {\color{Teal}\bfseries delegación agentic}\\[-0.05cm]reduce el umbral de entrada}}
+      \\[0.28cm]{\color{Gold}\LARGE $\Downarrow$}\\[0.18cm]
+      {\Large $\mathcal{L}^{\text{producción}}_i$}\\[0.18cm]
+      {\color{Muted}\small portafolio observado}
+    \end{column}
+  \end{columns}
+  \source{Quispe y Xu (2026), \emph{Coding Beyond Your Training: Claude Code and the Technological Frontier of Software Developers}.}
 \end{frame}
 
-%================= 1. EL ART\'ICULO ====================================
-\begin{frame}{1 \textperiodcentered{} The paper and the agent's problem}
-  \textbf{Question.} When does AI assistance make a worker \emph{less} productive?
-
-  \medskip
-  \textbf{The single mechanism.} AI is a \emph{perfectly substitutable input}:
-  skill, effort and assistance enter production only through their sum.
-  \[ x \;=\; s + e + a \]
-
-  \medskip
-  \textbf{The agent's problem.} Choose effort $e$ to maximise output net of a
-  \emph{linear} cost:
-  \[ \max_{e \ge 0}\; p(s+e+a) \;-\; \gamma e \]
-
-  \smallskip
-  \begin{itemize}\small
-    \item $p$ weakly increasing, concave, twice differentiable; $\gamma>0$.
-    \item Only constraint: $e \ge 0$ --- and it binds. That is the whole result.
-  \end{itemize}
+\begin{frame}{La comparación exigida: una decisión de modelamiento}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.47\textwidth}
+      {\color{Teal}\Large\bfseries Quispe--Xu}\\[0.18cm]
+      \textbf{IA como señal y capacidad de ejecución.}
+      \begin{itemize}
+        \item Añade el modo de delegación $D$ al menú del agente.
+        \item Puede bajar el umbral para lenguajes desconocidos.
+        \item Predice \key{expansión de la frontera de producción}.
+      \end{itemize}
+      \[M^1=\{S,C\}\ \longrightarrow\ M^2=\{S,C,D\}\]
+    \end{column}
+    \begin{column}{0.045\textwidth}
+      \centering\vspace{0.35cm}{\color{Gold}\rule{1pt}{4.45cm}}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      {\color{Navy}\Large\bfseries Aouad--Lykouris--Zhong}\\[0.18cm]
+      \textbf{IA como insumo perfectamente sustituible.}
+      \begin{itemize}
+        \item Habilidad, esfuerzo e IA entran por su suma.
+        \item La asistencia desplaza esfuerzo o aprendizaje humano.
+        \item Predice \textbf{pérdida o depreciación de habilidades}.
+      \end{itemize}
+      \[x=s+e+a\]
+    \end{column}
+  \end{columns}
+  \vspace{0.18cm}\centering
+  \colorbox{PaleGold}{\parbox{0.92\linewidth}{\centering\bfseries
+    Mismo fenómeno tecnológico, conclusiones opuestas: el mecanismo supuesto determina la predicción.}}
+  \source{Comparación indicada en las instrucciones de la Tarea 2.}
 \end{frame}
 
-%================= 2. EL RESULTADO ===================================
-\begin{frame}{2 \textperiodcentered{} Proposition 2.1, with all its conditions}
-  Define $x^{*}$ as the \emph{largest} maximiser of $p(x)-\gamma x$:
-  \[ x^{*} \;=\; \max\,\arg\max_{x}\;\bigl[\,p(x)-\gamma x\,\bigr] \]
-
-  \textbf{Regularity condition} (without it $x^{*}$ need not exist):
-  \[ \limsup_{x\to\infty} \frac{p(x)}{x} \;<\; \gamma \]
-
-  \medskip
-  \textbf{Then}
-  \[ e^{*}(s,a) = \bigl(x^{*}-s-a\bigr)_{+}, \qquad
-     p^{*}(s,a) = \max\bigl\{\,p(x^{*}),\; p(s+a)\,\bigr\} \]
-
-  \medskip
-  \footnotesize\emph{Intuition.} The agent has one target level of total input;
-  he tops it up with effort, and once skill plus AI already reach it he simply
-  stops working.
+\begin{frame}{Problema del agente: elegir modo y activar un lenguaje}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.54\textwidth}
+      \textbf{Menú antes y después de Claude Code}
+      \[M^1=\{S,C\},\qquad M^2=\{S,C,D\}.\]
+      Para desarrollador $i$, lenguaje $k$ y período $t$:
+      \[V^g_{ik,t}=\max_{m\in M^g}V^m_{ik,t},\qquad
+        Z^g_{ik,t}=\mathbf 1\!\left[V^g_{ik,t}\ge0\right].\]
+      El número de lenguajes producidos es
+      \[N^g_{it}=\sum_k Z^g_{ik,t}.\]
+    \end{column}
+    \begin{column}{0.41\textwidth}
+      \begin{block}{Tres modos}
+        \begin{tabular}{@{}>{\bfseries}c p{0.75\linewidth}@{}}
+          $S$ & producción sin asistencia;\\[0.16cm]
+          $C$ & asistencia conversacional, complementaria a habilidad previa;\\[0.16cm]
+          $D$ & delegación agentic de una fracción $\lambda$ de la ejecución.
+        \end{tabular}
+      \end{block}
+      \vspace{0.25cm}
+      \textbf{Mecanismo mínimo:} ampliar el menú nunca reduce el valor máximo; la cuestión sustantiva es cuándo $D$ vuelve viable una oportunidad antes inactiva.
+    \end{column}
+  \end{columns}
 \end{frame}
 
-%================= 3. LO QUE HICE ====================================
-\begin{frame}{3 \textperiodcentered{} What I did}
-  \textbf{Reproduced} Proposition 2.1 by hand --- the interior-versus-corner
-  split, with no differentiation in the proof (\texttt{hand/}).
-
-  \medskip
-  \textbf{Assumptions I considered relaxing}
-  \begin{itemize}\small
-    \item \textbf{Linear cost $\to$ convex.} \emph{Dead end}: the authors already
-      do it in Appendix D (Props. D.3, D.6). Replication, not extension.
-    \item \textbf{Myopia.} A two-period agent who internalises skill dynamics.
-      Never relaxed anywhere in the paper --- this is the live one.
-    \item \textbf{Complementarity inside $p(\cdot)$} rather than as an added
-      interaction term. Harder: \S{}4.4 and \S{}5.3 partly pre-empt it.
-  \end{itemize}
-
-  \medskip
-  \textbf{Also produced} a full step-by-step tutorial of the paper and two
-  lecture decks (\texttt{extra/}).
+\begin{frame}{De excedentes a umbrales de entrada}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.47\textwidth}
+      \textbf{Solo y asistencia conversacional}
+      \begin{align*}
+        V^S&=\omega+s\mu-\frac{\rho s^2}{2\pi}-b,&
+        T^S&=b-s\mu+\frac{\rho s^2}{2\pi},\\
+        V^C&=V^S+\gamma s-r_C,&
+        T^C&=T^S-(\gamma s-r_C),\\
+        T^1&=\min\{T^S,T^C\}.&&
+      \end{align*}
+      Para un lenguaje desconocido:
+      \[\gamma s-r_C\le0\quad\Longrightarrow\quad \boxed{T^1=T^S}.\]
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \textbf{Delegación agentic}
+      \[
+      \begin{aligned}
+        T^D={}&b-(1-\lambda)s\mu-\lambda az(A)+\kappa(a,s)+r_D\\
+              &+\frac{\rho}{2}\left[(1-\lambda)^2\frac{s^2}{\pi}
+              +\sigma_D^2(a,s,A)\right].
+      \end{aligned}
+      \]
+      Después de Claude Code:
+      \[\boxed{T^2=\min\{T^1,T^D\}\le T^1}.\]
+      \small
+      La desigualdad es débil porque el agente puede ignorar $D$. Para obtener una expansión estricta se necesita algo más que ampliar el menú.
+    \end{column}
+  \end{columns}
 \end{frame}
 
-%================= 4. LA IA =========================================
-\begin{frame}{4 \textperiodcentered{} Where I did not believe the AI}
-  \textbf{What I asked.} ``What is the most natural extension of this model?''
+\begin{frame}{Resultado principal: ganancia de umbral y condiciones}
+  \vspace{-0.06cm}
+  Para lenguajes desconocidos, defina $B\equiv T^S-T^D$:
+  \[
+  \boxed{B=\lambda[az(A)-s\mu]-\kappa(a,s)-r_D
+  +\frac{\rho}{2}\left[(2\lambda-\lambda^2)\frac{s^2}{\pi}-\sigma_D^2(a,s,A)\right]}
+  \]
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}
+      \textbf{Condiciones económicas y de dominio}
+      \begin{enumerate}
+        \item $\pi>0$, $\rho\ge0$, $0\le\lambda\le1$ y $\sigma_D^2\ge0$.
+        \item $\gamma s-r_C\le0$, de modo que $T^1=T^S$ en lenguajes desconocidos.
+        \item $B>0$, equivalente a $T^D<T^S$: el beneficio neto de delegar domina verificación, uso y riesgo residual.
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \textbf{Condiciones para observar el efecto}
+      \begin{enumerate}\setcounter{enumi}{3}
+        \item La oportunidad satisface $T^D\le\omega<T^S$.
+        \item Cada $F_k$ es una CDF monótona.
+        \item Para una expansión \emph{estricta}, existe masa positiva en al menos una banda: $F_k(T^S_k)>F_k(T^D_k)$.
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+\end{frame}
 
-  \medskip
-  \textbf{What the model answered.} Relax the linear cost $c(e)=\gamma e$ to a
-  strictly convex $c(e)$ --- presented confidently as an open direction.
+\begin{frame}{Banda de activación y expansión esperada}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.42\textwidth}
+      \textbf{Tres regiones de oportunidad}\vspace{0.3cm}
+      \begin{tabular}{@{}>{\raggedleft\arraybackslash}p{0.35\linewidth}p{0.58\linewidth}@{}}
+        $\omega<T^D$ & inactivo incluso con delegación;\\[0.34cm]
+        \colorbox{PaleGold}{$T^D\le\omega<T^S$} & \textbf{activo solo con el agente};\\[0.34cm]
+        $\omega\ge T^S$ & ya era viable antes.
+      \end{tabular}
+      \vspace{0.45cm}
+      \[Z^2_k-Z^1_k=\mathbf 1[T^D_k\le\omega_k<T^S_k].\]
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \textbf{De un lenguaje al portafolio}
+      \begin{align*}
+        \mathbb E[Z^g_k]&=\Pr(\omega_k\ge T^g_k)=1-F_k(T^g_k),\\[0.15cm]
+        \mathbb E[N^2-N^1]&=\sum_k\left[F_k(T^1_k)-F_k(T^2_k)\right]\ge0.
+      \end{align*}
+      Para lenguajes desconocidos con $T^1=T^S$ y $T^2=T^D$:
+      \[\boxed{\mathbb E[N^2-N^1]
+        =\sum_{k\in U_i}\left[F_k(T^S_k)-F_k(T^D_k)\right]\ge0.}\]
+      \small
+      El signo débil proviene de la expansión del menú; el signo estricto exige masa de oportunidades dentro de la banda.
+    \end{column}
+  \end{columns}
+\end{frame}
 
-  \medskip
-  \textbf{My verdict: \textcolor{red}{incorrect as an extension}.}
-  \begin{itemize}\small
-    \item Appendix D is titled \emph{``Extension to convex cost functions''} and
-      redoes Sections 2--4 under strictly convex cost.
-    \item So the proposal is already in the paper. I checked the appendix
-      directly rather than taking the answer at face value.
-    \item \emph{Caveat worth keeping:} Appendix D covers \S\S{}2--4 but \textbf{not}
-      \S{}5, so convex cost applied to the skill-polarisation result is genuinely
-      untouched.
-  \end{itemize}
+\begin{frame}{Qué hice analítica y computacionalmente}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      {\color{Teal}\Large\bfseries Analítico}
+      \begin{itemize}
+        \item Derivé $T^S$, $T^C$ y $T^D$ desde cada condición $V^m\ge0$.
+        \item Expandí manualmente $B=T^S-T^D$ y verifiqué el término de riesgo $2\lambda-\lambda^2$.
+        \item Separé expansión débil del menú de expansión estricta con masa positiva.
+        \item Identifiqué la banda exacta $T^D\le\omega<T^S$.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      {\color{Navy}\Large\bfseries Computacional}
+      \begin{itemize}
+        \item Traduje umbrales, activación y CDF monótona a Lean 4.
+        \item Verifiqué identidad algebraica, monotonía del mínimo, equivalencia $B>0\leftrightarrow T^D<T^S$ y banda de activación.
+        \item Elaboré la superficie probada con \textbf{0 errores, 0 mensajes} y sin \texttt{sorry}, \texttt{admit} ni axiomas propios.
+        \item Conservé el alcance honesto: formalización parcial del mecanismo, no de la identificación empírica.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.12cm}\centering\small
+  \colorbox{PaleTeal}{\parbox{0.91\linewidth}{\centering
+    Artefactos auditables: \texttt{hand/derivacion\_manual.pdf} y \texttt{lean/QX26AgenticDelegation/}.}}
+\end{frame}
 
-  \medskip
-  \footnotesize The step I re-derived by hand is in \texttt{hand/} --- I did not
-  trust the algebra of the first-order condition until I had written it out.
+\begin{frame}[fragile]{Lean: de la afirmación matemática a una prueba verificable}
+  \textbf{1. Afirmación matemática original}
+  \vspace{-0.06cm}
+  \[T^D<T^S\quad\Longrightarrow\quad
+    \bigl((Z^2-Z^1=1)\Longleftrightarrow T^D\le\omega<T^S\bigr).\]
+  \vspace{-0.18cm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.57\textwidth}
+      \textbf{2. Declaración Lean y fragmento decisivo}
+\begin{lstlisting}
+def activationBandSpec (opportunity preThreshold
+    agentThreshold : Real) : Prop :=
+  agentThreshold < preThreshold ->
+    (Active opportunity
+        (postThreshold preThreshold agentThreshold) /\
+      ~ Active opportunity preThreshold <->
+      agentThreshold <= opportunity /\
+        opportunity < preThreshold)
+
+theorem activation_band ... := by
+  intro hLower
+  unfold Active postThreshold
+  rw [min_eq_right (le_of_lt hLower)]
+  simp only [not_le]
+\end{lstlisting}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \textbf{3. Qué representa y qué verifica}
+      \begin{itemize}\small
+        \item \texttt{postThreshold} es $\min\{T^S,T^D\}$; con $T^D<T^S$, Lean lo reescribe como $T^D$.
+        \item \texttt{Active omega T} significa $T\le\omega$.
+        \item No estar activo antes, $\neg(T^S\le\omega)$, se transforma exactamente en $\omega<T^S$.
+        \item Lean certifica la \textbf{implicación condicional}; no prueba que Claude Code cause $T^D<T^S$ en los datos.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Donde no creí en la IA: derivación manual y veredicto}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}
+      \centering
+      \fcolorbox{Navy}{white}{%
+        \includegraphics[width=0.95\linewidth]{hand/derivacion_manual_p3_crop.jpg}}
+      \\[0.08cm]
+      {\scriptsize\color{Muted}Derivación manual: esperanza, banda de activación y signo.}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \small
+      \textbf{Lo que audité}
+      \begin{itemize}
+        \item La cancelación algebraica en $B=T^S-T^D$.
+        \item La equivalencia exacta entre cambio de activación y banda de oportunidades.
+        \item El salto interpretativo entre una predicción condicional y una afirmación causal.
+      \end{itemize}
+      \vspace{0.06cm}
+      \colorbox{PaleGold}{\parbox{0.92\linewidth}{
+        \textbf{Veredicto.} La derivación es correcta bajo sus supuestos. La adopción voluntaria es compatible con expansión de frontera, pero no descarta selección: un nuevo proyecto puede inducir tanto la adopción como el nuevo lenguaje.}}
+      \vspace{0.18cm}
+      \centering\textbf{Mecanismo coherente $\neq$ causalidad identificada.}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \end{document}
