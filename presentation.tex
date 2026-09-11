@@ -1,18 +1,393 @@
-\documentclass[aspectratio=169,10pt]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[spanish,es-nodecimaldot]{babel}
-\usepackage{lmodern}
-\usepackage{amsmath,amssymb,mathtools,bm}
-\usepackage{booktabs,array,graphicx,xcolor,listings,hyperref}
+\documentclas\documentclass[aspectratio=169,11pt]{beamer}
 
-\definecolor{Navy}{HTML}{17324D}
-\definecolor{Teal}{HTML}{0F6B78}
-\definecolor{Gold}{HTML}{C89B3C}
-\definecolor{Ink}{HTML}{18232E}
-\definecolor{Muted}{HTML}{5B6873}
-\definecolor{Paper}{HTML}{F7F5F0}
-\definecolor{PaleTeal}{HTML}{E7F0F1}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,graphicx}
+\usepackage{lmodern}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% Paleta en variaciones de azul
+\definecolor{AzulNoche}{HTML}{082F49}
+\definecolor{AzulProfundo}{HTML}{0C4A6E}
+\definecolor{AzulMedio}{HTML}{0369A1}
+\definecolor{AzulVivo}{HTML}{0284C7}
+\definecolor{AzulClaro}{HTML}{38BDF8}
+\definecolor{AzulHielo}{HTML}{E0F2FE}
+\definecolor{Fondo}{HTML}{F8FBFF}
+\definecolor{Gris}{HTML}{475569}
+
+\setbeamercolor{normal text}{fg=AzulNoche,bg=Fondo}
+\setbeamercolor{structure}{fg=AzulMedio}
+\setbeamercolor{frametitle}{fg=AzulNoche,bg=Fondo}
+\setbeamercolor{block title}{fg=white,bg=AzulProfundo}
+\setbeamercolor{block body}{fg=AzulNoche,bg=AzulHielo}
+\setbeamercolor{alerted text}{fg=AzulMedio}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{items}[circle]
+\setbeamertemplate{frametitle}{%
+  \vspace{0.22cm}\insertframetitle\par\vspace{0.05cm}%
+  {\color{AzulClaro}\rule{1.30cm}{1.5pt}}}
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.7ex,dp=1.2ex,leftskip=.55cm,rightskip=.55cm]{author in head/foot}%
+  \color{Gris}\scriptsize Acemoglu, Kong y Ozdaglar (2026) - NBER WP 34910
+  \hfill\textcolor{AzulMedio}{\insertframenumber/8}
+  \end{beamercolorbox}}
+\setbeamerfont{title}{size=\fontsize{25}{29}\selectfont,series=\bfseries}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+
+\newcommand{\azul}[1]{\textcolor{AzulMedio}{\textbf{#1}}}
+\newcommand{\repo}{\href{https://github.com/isisroquet-mi/ai-04-acemoglu}{github.com/isisroquet-mi/ai-04-acemoglu}}
+
+\pgfplotsset{
+  grafico/.style={
+    axis lines=left,
+    axis line style={AzulNoche,semithick},
+    tick style={AzulNoche},
+    tick label style={font=\scriptsize,color=AzulNoche},
+    label style={font=\scriptsize,color=AzulNoche},
+    title style={font=\small\bfseries,color=AzulProfundo},
+    legend style={font=\scriptsize,draw=none,fill=none},
+    grid=major,
+    grid style={AzulHielo},
+    clip=false
+  }
+}
+
+\title{IA, cognición humana y colapso del conocimiento}
+\subtitle{Repositorio 4 - Modelo, resultado y lectura crítica}
+\author{Isis Roque}
+\date{NBER Working Paper No. 34910 - febrero de 2026}
+
+\begin{document}
+
+% 1. Portada
+\begingroup
+\setbeamercolor{background canvas}{bg=AzulNoche}
+\begin{frame}[plain]
+  \vfill
+  \hspace{0.65cm}\begin{minipage}{0.84\paperwidth}
+    {\color{AzulClaro}\rule{1.6cm}{2pt}}\\[0.45cm]
+    {\usebeamerfont{title}\color{white}\inserttitle\par}
+    \vspace{0.34cm}
+    {\large\color{AzulHielo}\insertsubtitle\par}
+    \vspace{0.85cm}
+    {\normalsize\color{white}\insertauthor\par}
+    {\small\color{AzulHielo}\insertdate\par}
+    \vspace{0.45cm}
+    {\small\color{AzulClaro}\repo}
+  \end{minipage}
+  \vfill
+\end{frame}
+\endgroup
+
+% 2. Artículo y problema del agente
+\begin{frame}{El artículo y el problema del agente}
+\begin{block}{Pregunta}
+¿La IA agéntica mejora las decisiones presentes a costa del aprendizaje humano que sostiene el conocimiento colectivo?
+\end{block}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.56\textwidth}
+\azul{Elección privada}
+{\small
+\[
+\begin{aligned}
+\max_{e_{i,t}\ge 0}\ U_{i,t}
+={}&f(0,0)+G(X_t)\Delta_G\\
+&+G(X_t)G(Y_{i,t})\Delta_X-\frac{e_{i,t}^{\alpha}}{\alpha},
+\qquad \alpha>1.
+\end{aligned}
+\]}
+\[
+Y_{i,t}=\sigma^{-2}+\lambda_I e_{i,t}+\tau_A.
+\]
+
+\column{0.40\textwidth}
+\azul{Dos conocimientos}
+\begin{itemize}\small
+  \item $X_t$: conocimiento general heredado y compartido.
+  \item $Y_{i,t}$: información específica del contexto.
+  \item $e_{i,t}$ produce una señal privada y una señal pública ``delgada''.
+\end{itemize}
+\end{columns}
+
+\vspace{0.05cm}
+{\small\color{Gris}\textbf{Externalidad:} el agente internaliza el beneficio privado de aprender, pero no el aporte de su señal al conocimiento de cohortes futuras.}
+\end{frame}
+
+% 3. Resultado principal y condiciones
+\begin{frame}{Resultado principal y condiciones}
+\begin{columns}[T,onlytextwidth]
+\column{0.47\textwidth}
+\azul{Tensión estática: Observación 1}
+\[
+\frac{\partial U}{\partial e}
+=\Delta_XG(X)\lambda_I g(Y)-e^{\alpha-1}.
+\]
+\[
+\frac{\partial^2U}{\partial e\,\partial X}
+=\Delta_X\lambda_I g(X)g(Y)>0,
+\]
+\[
+\frac{\partial^2U}{\partial e\,\partial\tau_A}
+=\Delta_XG(X)\lambda_I g'(Y)<0.
+\]
+{\small Condiciones: $\Delta_X>0$, $\lambda_I>0$, $g>0$, $g'<0$ y costo convexo $\alpha>1$. Así, $e^*$ aumenta con $X$ y disminuye con $\tau_A$.}
+
+\column{0.49\textwidth}
+\azul{Dinámica: cuándo aparece el colapso}
+\begin{itemize}\small
+  \item Si $\alpha-1>\tfrac14$ ($\varepsilon<4$), todo $X_1>0$ converge al único estado estable de conocimiento alto $\bar X_h>0$.
+  \item Si $\alpha-1<\tfrac14$ ($\varepsilon>4$) y $\tau_A<\tau_A^c$, existen $0<\bar X_m<\bar X_h$: $X_1<\bar X_m$ converge a $0$ y $X_1>\bar X_m$ converge a $\bar X_h$.
+  \item Si $\alpha-1<\tfrac14$ y $\tau_A>\tau_A^c$, $\bar X=0$ es el único estado estacionario y es globalmente estable.
+\end{itemize}
+\vspace{0.08cm}
+{\footnotesize\color{Gris}El paper usa desigualdades estrictas. El caso frontera $\alpha-1=\tfrac14$ y la igualdad $\tau_A=\tau_A^c$ no forman parte de estas proposiciones.}
+\end{columns}
+\end{frame}
+
+% 4. Lo que hice
+\begin{frame}{Lo que hice}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\azul{Lectura y verificación}
+\begin{itemize}\footnotesize
+  \item Trabajé con el NBER Working Paper No. 34910, febrero de 2026, 69 páginas y no revisado por pares.
+  \item Lo contrasté con la versión del 5 de mayo de 2026: mismo título, autores, 69 páginas y argumento central. Cambia la portada, la redacción y la parametrización $\alpha-1$ frente a $\varepsilon=1/(\alpha-1)$.
+  \item Derivé la Observación 1 y separé el efecto directo e indirecto de $\tau_A$ sobre el bienestar.
+\end{itemize}
+
+\column{0.48\textwidth}
+\azul{Qué demuestra y qué supone}
+\begin{block}{Demostrado dentro del modelo}
+\small La IA agéntica reduce el retorno marginal del esfuerzo. Bajo las condiciones de elasticidad y precisión, puede eliminar el equilibrio de conocimiento alto.
+\end{block}
+\begin{block}{Dependencia crítica de supuestos}
+\small La Sección 5 relaja agregación, datos sintéticos y separabilidad imperfecta, pero mantiene $\Delta_I=0$ y $\Delta_X>0$. Con $\Delta_I>0$, la información específica podría conservar valor aun con poco conocimiento general.
+\end{block}
+\end{columns}
+\end{frame}
+
+% 5. Dónde no creí en la IA
+\begin{frame}{Dónde no creí en la IA}
+\begin{columns}[T,onlytextwidth]
+\column{0.42\textwidth}
+\azul{La intuición que puse a prueba}
+
+{\footnotesize ``Más precisión de la IA siempre aumenta el bienestar.''}
+
+\vspace{-0.03cm}
+{\scriptsize
+\[
+\begin{aligned}
+\frac{d\bar U^+}{d\tau_A}
+={}&\underbrace{G(\bar X_h)\Delta_Xg(\bar Y_h)}_{\text{directo }>0}\\
+&+\underbrace{g(\bar X_h)\big[\Delta_G+G(\bar Y_h)\Delta_X\big]
+\frac{d\bar X_h}{d\tau_A}}_{\text{indirecto }<0}.
+\end{aligned}
+\]}
+{\tiny Con el Supuesto 2, $\sigma^{-2}\ge\sqrt2-1$, $\bar U^+(\tau_A)$ tiene un pico único.}\par
+\vspace{0.02cm}
+{\scriptsize\color{AzulProfundo}\textbf{Veredicto: incompleta.} El efecto indirecto puede dominar.}
+
+\column{0.54\textwidth}
+\centering
+\IfFileExists{hand/Derivación_Manual.pdf}{%
+  \fcolorbox{AzulClaro}{white}{\includegraphics[page=3,width=0.96\linewidth,height=0.61\textheight,trim=30 425 30 28,clip,keepaspectratio]{hand/Derivación_Manual.pdf}}%
+}{%
+  \IfFileExists{derivacion-bienestar.png}{%
+    \fcolorbox{AzulClaro}{white}{\includegraphics[width=0.96\linewidth,height=0.61\textheight,trim=80 520 80 35,clip,keepaspectratio]{derivacion-bienestar.png}}%
+  }{%
+    \fcolorbox{AzulClaro}{white}{\parbox[c][0.55\textheight][c]{0.92\linewidth}{\centering\color{Gris}Inserte aquí la página 3 de la derivación manual.}}%
+  }%
+}
+
+{\tiny\color{Gris}Derivación manual de Isis Roque, p.~3: efecto directo $>0$ e indirecto $<0$.}
+\end{columns}
+\end{frame}
+
+% 6. Dinámica y alpha
+\begin{frame}{Dinámica: el papel de $\alpha$}
+\vspace{-0.08cm}
+{\footnotesize Los estados estacionarios aparecen donde $F(X)$ corta la línea de 45 grados. Se fija $\tau_A=0.50$ y se modifica únicamente $\alpha$.}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.49\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  grafico,width=\linewidth,height=0.50\textheight,
+  xmin=0,xmax=0.62,ymin=0,ymax=0.62,
+  xtick={0,0.2,0.4,0.6},ytick={0,0.2,0.4,0.6},
+  xlabel={$X_t$},ylabel={$X_{t+1}$},
+  title={$\alpha=1.50$: equilibrio alto único}
+]
+\addplot[AzulClaro,densely dashed,semithick] coordinates {(0,0) (0.62,0.62)};
+\addplot[AzulProfundo,very thick,smooth] coordinates {
+(0.000,0.0000) (0.025,0.0805) (0.050,0.1435) (0.075,0.1947)
+(0.100,0.2374) (0.125,0.2738) (0.150,0.3053) (0.175,0.3330)
+(0.200,0.3577) (0.225,0.3797) (0.250,0.3997) (0.275,0.4178)
+(0.300,0.4344) (0.325,0.4497) (0.350,0.4638) (0.375,0.4770)
+(0.400,0.4892) (0.425,0.5007) (0.450,0.5114) (0.475,0.5215)
+(0.500,0.5311) (0.525,0.5401) (0.550,0.5486) (0.575,0.5567)
+(0.600,0.5645)};
+\addplot[only marks,mark=*,mark size=2.2pt,AzulProfundo] coordinates {(0.5479,0.5479)};
+\node[font=\scriptsize,anchor=west,text=AzulProfundo] at (axis cs:0.555,0.5479) {$\bar X_h$};
+\end{axis}
+\end{tikzpicture}
+
+\column{0.49\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  grafico,width=\linewidth,height=0.50\textheight,
+  xmin=0,xmax=0.62,ymin=0,ymax=0.62,
+  xtick={0,0.2,0.4,0.6},ytick={0,0.2,0.4,0.6},
+  xlabel={$X_t$},ylabel={$X_{t+1}$},
+  title={$\alpha=1.20$: tres estados estacionarios}
+]
+\addplot[AzulClaro,densely dashed,semithick] coordinates {(0,0) (0.62,0.62)};
+\addplot[AzulVivo,very thick,smooth] coordinates {
+(0.000,0.0000) (0.025,0.0248) (0.050,0.0496) (0.075,0.0749)
+(0.100,0.1006) (0.125,0.1265) (0.150,0.1524) (0.175,0.1781)
+(0.200,0.2033) (0.225,0.2278) (0.250,0.2514) (0.275,0.2741)
+(0.300,0.2957) (0.325,0.3162) (0.350,0.3357) (0.375,0.3541)
+(0.400,0.3716) (0.425,0.3880) (0.450,0.4036) (0.475,0.4183)
+(0.500,0.4323) (0.525,0.4455) (0.550,0.4580) (0.575,0.4699)
+(0.600,0.4811)};
+\addplot[only marks,mark=*,mark size=2.2pt,AzulProfundo] coordinates {(0,0) (0.2664,0.2664)};
+\addplot[only marks,mark=o,mark size=2.4pt,very thick,AzulClaro] coordinates {(0.0804,0.0804)};
+\node[font=\scriptsize,anchor=south west,text=AzulMedio] at (axis cs:0.092,0.0804) {$\bar X_m$};
+\node[font=\scriptsize,anchor=west,text=AzulProfundo] at (axis cs:0.276,0.2664) {$\bar X_h$};
+\end{axis}
+\end{tikzpicture}
+\end{columns}
+
+\vspace{-0.08cm}
+{\footnotesize $\alpha=1.50$ cumple $\alpha-1>\tfrac14$: $0$ es inestable. Con $\alpha=1.20$, $\alpha-1<\tfrac14$ y aparece el umbral inestable $\bar X_m$.}
+
+{\tiny\color{Gris}Simulación ilustrativa: $\Delta_X=6$, $\lambda_I=I=\Sigma^2=1$, $\lambda_G=2$ y $\sigma^{-2}=0.5$.}
+\end{frame}
+
+% 7. Umbral de colapso
+\begin{frame}{Umbral de colapso}
+\begin{columns}[T,onlytextwidth]
+\column{0.66\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  grafico,width=\linewidth,height=0.58\textheight,
+  xmin=0,xmax=0.62,ymin=0,ymax=0.62,
+  xtick={0,0.2,0.4,0.6},ytick={0,0.2,0.4,0.6},
+  xlabel={$X_t$},ylabel={$X_{t+1}$},
+  legend style={font=\tiny,at={(0.02,0.98)},anchor=north west,row sep=-1pt}
+]
+\addplot[Gris,densely dashed,semithick] coordinates {(0,0) (0.62,0.62)};
+\addlegendentry{Línea de 45 grados}
+\addplot[AzulProfundo,very thick,smooth] coordinates {
+(0.000,0.0000) (0.025,0.0259) (0.050,0.0552) (0.075,0.0882)
+(0.100,0.1238) (0.125,0.1603) (0.150,0.1962) (0.175,0.2304)
+(0.200,0.2625) (0.225,0.2923) (0.250,0.3197) (0.275,0.3448)
+(0.300,0.3679) (0.325,0.3891) (0.350,0.4087) (0.375,0.4267)
+(0.400,0.4434) (0.425,0.4589) (0.450,0.4732) (0.475,0.4867)
+(0.500,0.4992) (0.525,0.5109) (0.550,0.5220) (0.575,0.5324)
+(0.600,0.5422)};
+\addlegendentry{$\tau_A=0.25<\tau_A^c$}
+\addplot[AzulVivo,very thick,densely dotted,smooth] coordinates {
+(0.000,0.0000) (0.025,0.0247) (0.050,0.0494) (0.075,0.0743)
+(0.100,0.0994) (0.125,0.1247) (0.150,0.1500) (0.175,0.1750)
+(0.200,0.1995) (0.225,0.2234) (0.250,0.2465) (0.275,0.2687)
+(0.300,0.2900) (0.325,0.3102) (0.350,0.3295) (0.375,0.3478)
+(0.400,0.3652) (0.425,0.3816) (0.450,0.3972) (0.475,0.4119)
+(0.500,0.4259) (0.525,0.4392) (0.550,0.4517) (0.575,0.4637)
+(0.600,0.4751)};
+\addlegendentry{$\tau_A=\tau_A^c\approx0.526$}
+\addplot[AzulClaro,very thick,densely dashed,smooth] coordinates {
+(0.000,0.0000) (0.025,0.0247) (0.050,0.0492) (0.075,0.0738)
+(0.100,0.0985) (0.125,0.1233) (0.150,0.1480) (0.175,0.1724)
+(0.200,0.1964) (0.225,0.2198) (0.250,0.2424) (0.275,0.2643)
+(0.300,0.2852) (0.325,0.3052) (0.350,0.3243) (0.375,0.3424)
+(0.400,0.3597) (0.425,0.3761) (0.450,0.3916) (0.475,0.4064)
+(0.500,0.4204) (0.525,0.4337) (0.550,0.4463) (0.575,0.4583)
+(0.600,0.4697)};
+\addlegendentry{$\tau_A=0.55>\tau_A^c$}
+\addplot[only marks,mark=*,mark size=2.1pt,AzulVivo] coordinates {(0.1633,0.1633)};
+\end{axis}
+\end{tikzpicture}
+
+\column{0.30\textwidth}
+\azul{Desplazamiento de $F(X)$}
+
+{\footnotesize Se mantiene $\alpha=1.20$. Al aumentar $\tau_A$, el esfuerzo humano cae y todo el mapa $F$ se desplaza hacia abajo.}
+
+\vspace{0.15cm}
+{\normalsize
+\[
+\tau_A^c\approx0.526.
+\]}
+
+\begin{itemize}\scriptsize
+  \item Por debajo, existen dos equilibrios positivos.
+  \item En el umbral, ambos se unen por tangencia.
+  \item Por encima, solo queda el colapso $\bar X=0$.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+% 8. Path dependence
+\begin{frame}{Dependencia de la condición inicial}
+\begin{columns}[T,onlytextwidth]
+\column{0.70\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  grafico,width=\linewidth,height=0.60\textheight,
+  xmin=0,xmax=400,ymin=0,ymax=0.30,
+  xtick={0,100,200,300,400},ytick={0,0.1,0.2,0.3},
+  xlabel={Cohorte, $t$},ylabel={Conocimiento general, $X_t$},
+  legend style={at={(0.97,0.52)},anchor=east,row sep=1pt}
+]
+\addplot[AzulClaro,densely dashed,semithick] coordinates {(0,0.0804) (400,0.0804)};
+\addlegendentry{Umbral $\bar X_m=0.0804$}
+\addplot[AzulProfundo,very thick,smooth] coordinates {
+(0,0.07000) (20,0.06543) (40,0.05960) (60,0.05275) (80,0.04542)
+(100,0.03828) (120,0.03188) (140,0.02649) (160,0.02212)
+(180,0.01864) (200,0.01589) (220,0.01370) (240,0.01195)
+(260,0.01053) (280,0.00937) (300,0.00841) (320,0.00760)
+(340,0.00692) (360,0.00634) (380,0.00584) (400,0.00540)};
+\addlegendentry{$X_1=0.07<\bar X_m$}
+\addplot[AzulVivo,very thick,smooth] coordinates {
+(0,0.09000) (20,0.09649) (40,0.10860) (60,0.13330) (80,0.18371)
+(100,0.24244) (120,0.26286) (140,0.26597) (160,0.26635)
+(180,0.26640) (200,0.26641) (220,0.26641) (240,0.26641)
+(260,0.26641) (280,0.26641) (300,0.26641) (320,0.26641)
+(340,0.26641) (360,0.26641) (380,0.26641) (400,0.26641)};
+\addlegendentry{$X_1=0.09>\bar X_m$}
+\addplot[AzulMedio,densely dotted,semithick] coordinates {(0,0.2664) (400,0.2664)};
+\end{axis}
+\end{tikzpicture}
+
+\column{0.26\textwidth}
+{\footnotesize Con $\alpha=1.20$ y $\tau_A=0.50$ existen tres estados estacionarios:}
+{\small
+\[
+\begin{aligned}
+\bar X_m&\approx0.0804,\\
+\bar X_h&\approx0.2664.
+\end{aligned}
+\]}
+\begin{itemize}\scriptsize
+  \item $X_1=0.07$ cae gradualmente hacia $0$.
+  \item $X_1=0.09$ converge hacia $\bar X_h$.
+\end{itemize}
+
+{\tiny\color{Gris}El umbral separa dos cuencas de atracción. Una diferencia inicial de $0.02$ cambia el resultado de largo plazo.}
+\end{columns}
+\end{frame}
+
+\end{document}
+
 \definecolor{PaleGold}{HTML}{F5EBD5}
 \definecolor{CodeBg}{HTML}{F1F3F5}
 
